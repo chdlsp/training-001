@@ -3,7 +3,7 @@ package com.rasol.training001.models;
 import java.util.Date;
 import java.util.List;
 
-public class BookEntity {
+public class Books {
     private String title;
     private String contents;
     private String isbn;
@@ -18,7 +18,7 @@ public class BookEntity {
         return title;
     }
 
-    public BookEntity setTitle(String title) {
+    public Books setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -27,7 +27,7 @@ public class BookEntity {
         return contents;
     }
 
-    public BookEntity setContents(String contents) {
+    public Books setContents(String contents) {
         this.contents = contents;
         return this;
     }
@@ -36,7 +36,7 @@ public class BookEntity {
         return isbn;
     }
 
-    public BookEntity setIsbn(String isbn) {
+    public Books setIsbn(String isbn) {
         this.isbn = isbn;
         return this;
     }
@@ -45,7 +45,7 @@ public class BookEntity {
         return dateTime;
     }
 
-    public BookEntity setDateTime(Date dateTime) {
+    public Books setDateTime(Date dateTime) {
         this.dateTime = dateTime;
         return this;
     }
@@ -54,7 +54,7 @@ public class BookEntity {
         return authors;
     }
 
-    public BookEntity setAuthors(List<String> authors) {
+    public Books setAuthors(List<String> authors) {
         this.authors = authors;
         return this;
     }
@@ -63,7 +63,7 @@ public class BookEntity {
         return publisher;
     }
 
-    public BookEntity setPublisher(String publisher) {
+    public Books setPublisher(String publisher) {
         this.publisher = publisher;
         return this;
     }
@@ -72,7 +72,7 @@ public class BookEntity {
         return price;
     }
 
-    public BookEntity setPrice(Integer price) {
+    public Books setPrice(Integer price) {
         this.price = price;
         return this;
     }
@@ -81,7 +81,7 @@ public class BookEntity {
         return salePrice;
     }
 
-    public BookEntity setSalePrice(Integer salePrice) {
+    public Books setSalePrice(Integer salePrice) {
         this.salePrice = salePrice;
         return this;
     }
@@ -90,7 +90,7 @@ public class BookEntity {
         return thumbnail;
     }
 
-    public BookEntity setThumbnail(String thumbnail) {
+    public Books setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
         return this;
     }
