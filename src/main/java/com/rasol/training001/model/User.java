@@ -1,6 +1,6 @@
-package com.rasol.training001.models;
+package com.rasol.training001.model;
 
-public class Users {
+public class User {
     private String id;
     private String password;
 
@@ -8,7 +8,7 @@ public class Users {
         return id;
     }
 
-    public Users setId(String id) {
+    public User setId(String id) {
         this.id = id;
         return this;
     }
@@ -17,7 +17,7 @@ public class Users {
         return password;
     }
 
-    public Users setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
         return this;
     }

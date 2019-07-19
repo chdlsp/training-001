@@ -1,6 +1,6 @@
-package com.rasol.training001.controllers;
+package com.rasol.training001.controller;
 
-import com.rasol.training001.models.Histories;
+import com.rasol.training001.model.History;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class HistoryController {
 
     @GetMapping("/users/{id}")
-    public List<Histories> getHistoriesOrderByDateDesc(
+    public List<History> getHistoriesOrderByDateDesc(
             @PathVariable("id") String id){
 
         return null;

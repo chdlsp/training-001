@@ -1,6 +1,6 @@
-package com.rasol.training001.controllers;
+package com.rasol.training001.controller;
 
-import com.rasol.training001.models.Books;
+import com.rasol.training001.model.Book;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
 public class BookController {
 
     @GetMapping
-    public List<Books> getBooksByPage(
+    public List<Book> getBooksByPage(
             @RequestParam(value = "keyword") String keyword,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page){
 
@@ -18,7 +18,7 @@ public class BookController {
     }
 
     @GetMapping("/{isbn}")
-    public Books getBookDetail(
+    public Book getBookDetail(
             @PathVariable(value = "isbn") String isbn){
 
         return null;

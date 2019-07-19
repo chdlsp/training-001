@@ -1,6 +1,6 @@
-package com.rasol.training001.controllers;
+package com.rasol.training001.controller;
 
-import com.rasol.training001.models.Users;
+import com.rasol.training001.model.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     @PostMapping()
-    public Users createUser(Users users){
+    public User createUser(User user){
 
         return null;
 
     }
 
     @PostMapping("/login")
-    public Users loginUser(Users users){
+    public User loginUser(User user){
 
         return null;
 

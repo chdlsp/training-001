@@ -1,9 +1,9 @@
-package com.rasol.training001.models;
+package com.rasol.training001.model;
 
 import java.util.Date;
 import java.util.List;
 
-public class Books {
+public class Book {
     private String title;
     private String contents;
     private String isbn;
@@ -18,7 +18,7 @@ public class Books {
         return title;
     }
 
-    public Books setTitle(String title) {
+    public Book setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -27,7 +27,7 @@ public class Books {
         return contents;
     }
 
-    public Books setContents(String contents) {
+    public Book setContents(String contents) {
         this.contents = contents;
         return this;
     }
@@ -36,7 +36,7 @@ public class Books {
         return isbn;
     }
 
-    public Books setIsbn(String isbn) {
+    public Book setIsbn(String isbn) {
         this.isbn = isbn;
         return this;
     }
@@ -45,7 +45,7 @@ public class Books {
         return dateTime;
     }
 
-    public Books setDateTime(Date dateTime) {
+    public Book setDateTime(Date dateTime) {
         this.dateTime = dateTime;
         return this;
     }
@@ -54,7 +54,7 @@ public class Books {
         return authors;
     }
 
-    public Books setAuthors(List<String> authors) {
+    public Book setAuthors(List<String> authors) {
         this.authors = authors;
         return this;
     }
@@ -63,7 +63,7 @@ public class Books {
         return publisher;
     }
 
-    public Books setPublisher(String publisher) {
+    public Book setPublisher(String publisher) {
         this.publisher = publisher;
         return this;
     }
@@ -72,7 +72,7 @@ public class Books {
         return price;
     }
 
-    public Books setPrice(Integer price) {
+    public Book setPrice(Integer price) {
         this.price = price;
         return this;
     }
@@ -81,7 +81,7 @@ public class Books {
         return salePrice;
     }
 
-    public Books setSalePrice(Integer salePrice) {
+    public Book setSalePrice(Integer salePrice) {
         this.salePrice = salePrice;
         return this;
     }
@@ -90,7 +90,7 @@ public class Books {
         return thumbnail;
     }
 
-    public Books setThumbnail(String thumbnail) {
+    public Book setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
         return this;
     }

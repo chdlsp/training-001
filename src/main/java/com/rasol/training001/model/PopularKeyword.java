@@ -1,6 +1,6 @@
-package com.rasol.training001.models;
+package com.rasol.training001.model;
 
-public class PopularKeywords {
+public class PopularKeyword {
     private String keyword;
     private Integer count;
 
@@ -8,7 +8,7 @@ public class PopularKeywords {
         return keyword;
     }
 
-    public PopularKeywords setKeyword(String keyword) {
+    public PopularKeyword setKeyword(String keyword) {
         this.keyword = keyword;
         return this;
     }
@@ -17,7 +17,7 @@ public class PopularKeywords {
         return count;
     }
 
-    public PopularKeywords setCount(Integer count) {
+    public PopularKeyword setCount(Integer count) {
         this.count = count;
         return this;
     }

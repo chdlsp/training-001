@@ -1,8 +1,8 @@
-package com.rasol.training001.models;
+package com.rasol.training001.model;
 
 import java.util.Date;
 
-public class Histories {
+public class History {
     private String searcherId;
     private String keyword;
     private Date date;
@@ -11,7 +11,7 @@ public class Histories {
         return searcherId;
     }
 
-    public Histories setSearcherId(String searcherId) {
+    public History setSearcherId(String searcherId) {
         this.searcherId = searcherId;
         return this;
     }
@@ -20,7 +20,7 @@ public class Histories {
         return keyword;
     }
 
-    public Histories setKeyword(String keyword) {
+    public History setKeyword(String keyword) {
         this.keyword = keyword;
         return this;
     }
@@ -29,7 +29,7 @@ public class Histories {
         return date;
     }
 
-    public Histories setDate(Date date) {
+    public History setDate(Date date) {
         this.date = date;
         return this;
     }
