@@ -1,5 +1,7 @@
 package com.rasol.training001.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 import java.util.List;
 
@@ -7,10 +9,12 @@ public class Book {
     private String title;
     private String contents;
     private String isbn;
-    private Date dateTime;
+    @JsonProperty("datetime")
+    private String dateTime;
     private List<String> authors;
     private String publisher;
     private Integer price;
+    @JsonProperty("sale_price")
     private Integer salePrice;
     private String thumbnail;
 
@@ -41,11 +45,11 @@ public class Book {
         return this;
     }
 
-    public Date getDateTime() {
+    public String getDateTime() {
         return dateTime;
     }
 
-    public Book setDateTime(Date dateTime) {
+    public Book setDateTime(String dateTime) {
         this.dateTime = dateTime;
         return this;
     }

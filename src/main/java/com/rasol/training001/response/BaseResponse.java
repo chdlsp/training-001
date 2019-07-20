@@ -1,12 +1,14 @@
 package com.rasol.training001.response;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.Map;
 
 public class BaseResponse {
     private String timestamp;
     private Map<String, String> errors;
     private String path;
-    private String body;
+    private Object body;
     private String message;
 
     public String getTimestamp() {
@@ -36,11 +38,11 @@ public class BaseResponse {
         return this;
     }
 
-    public String getBody() {
+    public Object getBody() {
         return body;
     }
 
-    protected BaseResponse setBody(String body) {
+    public BaseResponse setBody(Object body) {
         this.body = body;
         return this;
     }
