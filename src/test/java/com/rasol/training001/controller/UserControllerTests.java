@@ -1,6 +1,7 @@
 package com.rasol.training001.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.rasol.training001.code.ErrorCodes;
 import com.rasol.training001.model.dto.User;
 import com.rasol.training001.repository.UserRepository;
 import org.junit.Test;
@@ -11,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -33,7 +35,7 @@ public class UserControllerTests {
     private UserRepository userRepository;
 
     @Test
-    public void save_validUser_200() throws Exception{
+    public void createUser_validUser_200() throws Exception{
 
         User user = new User().setId("testId").setPassword("testPassword");
         User resultUser = new User().setId("testId");
@@ -49,7 +51,26 @@ public class UserControllerTests {
     }
 
     @Test
-    public void save_notBlankUserId_400() throws Exception{
+    public void createUser_alreadyExistsUser_409() throws Exception{
+
+        User user = new User().setId("testId").setPassword("testPassword");
+
+        mockMvc.perform(post("/users")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON));
+
+        final ResultActions resultActions = this.mockMvc.perform(post("/users")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isConflict())
+                .andExpect(jsonPath("$.message").value(ErrorCodes.Constants.USER_ID_ALREADY_EXISTS_ERROR));
+    }
+
+    @Test
+    public void createUser_notBlankUserId_400() throws Exception{
 
         User user = new User().setId("").setPassword("testPassword");
 //        User resultUser = new User().setId("testId");
@@ -61,7 +82,81 @@ public class UserControllerTests {
 
         resultActions
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("errors").value("id").match(););
+                .andExpect(jsonPath("$.errors.id").value(ErrorCodes.USER_ID_MANDATORY_ERROR.getErrorMessage()));
+    }
+
+    @Test
+    public void createUser_notBlankUserPassword_400() throws Exception{
+
+        User user = new User().setId("test").setPassword("");
+//        User resultUser = new User().setId("testId");
+
+        final ResultActions resultActions = mockMvc.perform(post("/users")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.password").value(ErrorCodes.USER_PASSWORD_MANDATORY_ERROR.getErrorMessage()));
+    }
+
+    @Test
+    public void createUser_notBlankUserPasswordAndId_400() throws Exception{
+
+        User user = new User().setId("").setPassword("");
+//        User resultUser = new User().setId("testId");
+
+        final ResultActions resultActions = mockMvc.perform(post("/users")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errors.id").value(ErrorCodes.USER_ID_MANDATORY_ERROR.getErrorMessage()))
+                .andExpect(jsonPath("$.errors.password").value(ErrorCodes.USER_PASSWORD_MANDATORY_ERROR.getErrorMessage()));
+
+    }
+
+    @Test
+    public void createUser_maxLengthUserId_200() throws Exception{
+        String maxLengthUserId = "";
+        for(int i = 0;i < 255; i++) {
+            maxLengthUserId = maxLengthUserId + "1";
+        }
+
+        User user = new User().setId(maxLengthUserId).setPassword("testPassword");
+        User resultUser = new User().setId(maxLengthUserId);
+
+        final ResultActions resultActions = mockMvc.perform(post("/users")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("body").value(objectMapper.writeValueAsString(resultUser)));
+    }
+
+    @Test
+    public void createUser_overMaxLengthUserId_400() throws Exception{
+        String maxLengthUserId = "";
+        for(int i = 0;i < 256; i++) {
+            maxLengthUserId = maxLengthUserId + "1";
+        }
+
+        User user = new User().setId(maxLengthUserId).setPassword("testPassword");
+        User resultUser = new User().setId(maxLengthUserId);
+
+        final ResultActions resultActions = mockMvc.perform(post("/users")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("body").value(objectMapper.writeValueAsString(resultUser)));
     }
 
 

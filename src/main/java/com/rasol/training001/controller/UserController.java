@@ -1,5 +1,6 @@
 package com.rasol.training001.controller;
 
+import com.rasol.training001.code.ErrorCodes;
 import com.rasol.training001.model.dto.User;
 import com.rasol.training001.response.RestResponseEntity;
 import com.rasol.training001.service.UserService;
@@ -25,6 +26,7 @@ public class UserController {
     @PostMapping()
     public RestResponseEntity createUser(@RequestBody @Valid User user, HttpServletRequest request){
         userService.createUser(user);
+        user.setPassword(null);
 
         return new RestResponseEntity(request, user);
     }
