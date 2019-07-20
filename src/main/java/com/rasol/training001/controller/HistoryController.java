@@ -1,6 +1,6 @@
 package com.rasol.training001.controller;
 
-import com.rasol.training001.model.History;
+import com.rasol.training001.model.dto.History;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

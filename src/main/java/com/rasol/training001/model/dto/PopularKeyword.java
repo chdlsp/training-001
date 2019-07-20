@@ -1,4 +1,4 @@
-package com.rasol.training001.model;
+package com.rasol.training001.model.dto;
 
 public class PopularKeyword {
     private String keyword;

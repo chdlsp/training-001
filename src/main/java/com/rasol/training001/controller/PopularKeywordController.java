@@ -1,6 +1,6 @@
 package com.rasol.training001.controller;
 
-import com.rasol.training001.model.PopularKeyword;
+import com.rasol.training001.model.dto.PopularKeyword;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

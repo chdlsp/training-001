@@ -1,6 +1,6 @@
 package com.rasol.training001.controller;
 
-import com.rasol.training001.model.Book;
+import com.rasol.training001.model.dto.Book;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
