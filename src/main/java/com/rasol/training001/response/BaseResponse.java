@@ -4,11 +4,10 @@ import java.util.Map;
 
 public class BaseResponse {
     private String timestamp;
-    private Integer status;
     private Map<String, String> errors;
     private String path;
-    private String error;
     private String body;
+    private String message;
 
     public String getTimestamp() {
         return timestamp;
@@ -16,15 +15,6 @@ public class BaseResponse {
 
     protected BaseResponse setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-        return this;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    protected BaseResponse setStatus(Integer status) {
-        this.status = status;
         return this;
     }
 
@@ -46,21 +36,21 @@ public class BaseResponse {
         return this;
     }
 
-    public String getError() {
-        return error;
-    }
-
-    protected BaseResponse setError(String error) {
-        this.error = error;
-        return this;
-    }
-
     public String getBody() {
         return body;
     }
 
     protected BaseResponse setBody(String body) {
         this.body = body;
+        return this;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    protected BaseResponse setMessage(String message) {
+        this.message = message;
         return this;
     }
 }

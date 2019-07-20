@@ -1,4 +1,4 @@
-package com.rasol.training001.controller;
+package com.rasol.training001.controller.userController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rasol.training001.code.ErrorCodes;
@@ -17,6 +17,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import javax.transaction.Transactional;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -25,17 +27,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTests {
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+public class CreateUserTests {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
-    private UserRepository userRepository;
-
     @Test
-    public void createUser_validUser_200() throws Exception{
+    public void validUser_200() throws Exception{
 
         User user = new User().setId("testId").setPassword("testPassword");
         User resultUser = new User().setId("testId");
@@ -51,7 +51,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void createUser_alreadyExistsUser_409() throws Exception{
+    public void alreadyExistsUser_409() throws Exception{
 
         User user = new User().setId("testId").setPassword("testPassword");
 
@@ -70,7 +70,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void createUser_notBlankUserId_400() throws Exception{
+    public void notBlankUserId_400() throws Exception{
 
         User user = new User().setId("").setPassword("testPassword");
 //        User resultUser = new User().setId("testId");
@@ -86,7 +86,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void createUser_notBlankUserPassword_400() throws Exception{
+    public void notBlankUserPassword_400() throws Exception{
 
         User user = new User().setId("test").setPassword("");
 //        User resultUser = new User().setId("testId");
@@ -102,7 +102,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void createUser_notBlankUserPasswordAndId_400() throws Exception{
+    public void notBlankUserPasswordAndId_400() throws Exception{
 
         User user = new User().setId("").setPassword("");
 //        User resultUser = new User().setId("testId");
@@ -120,7 +120,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void createUser_maxLengthUserId_200() throws Exception{
+    public void maxLengthUserId_200() throws Exception{
         String maxLengthUserId = "";
         for(int i = 0;i < 255; i++) {
             maxLengthUserId = maxLengthUserId + "1";
@@ -140,7 +140,7 @@ public class UserControllerTests {
     }
 
     @Test
-    public void createUser_overMaxLengthUserId_400() throws Exception{
+    public void overMaxLengthUserId_400() throws Exception{
         String maxLengthUserId = "";
         for(int i = 0;i < 256; i++) {
             maxLengthUserId = maxLengthUserId + "1";
@@ -156,7 +156,7 @@ public class UserControllerTests {
 
         resultActions
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("body").value(objectMapper.writeValueAsString(resultUser)));
+                .andExpect(jsonPath("$.errors.id").value(ErrorCodes.USER_ID_MAX_LENGTH_ERROR.getErrorMessage()));
     }
 
 

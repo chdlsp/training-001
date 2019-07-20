@@ -3,17 +3,14 @@ package com.rasol.training001.exception;
 
 import com.rasol.training001.code.ErrorCodes;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(HttpStatus.CONFLICT)
-public class ConflictException extends RuntimeException{
-
+public class ConflictException extends RestException{
 
     private ConflictException(String message){
-        super(message);
+        super(message, HttpStatus.CONFLICT);
     }
 
-    public static ConflictException getUserAlreadyExistsException(String id){
+    public static ConflictException getUserAlreadyExistsException(){
         return new ConflictException(ErrorCodes.Constants.USER_ID_ALREADY_EXISTS_ERROR);
     }
 }

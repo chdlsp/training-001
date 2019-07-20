@@ -32,9 +32,11 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public User loginUser(@RequestBody @Valid User user){
-        return null;
+    public RestResponseEntity loginUser(@RequestBody @Valid User user, HttpServletRequest request){
+        userService.loginUser(user);
+        user.setPassword(null);
 
+        return new RestResponseEntity(request, user);
     }
 
 

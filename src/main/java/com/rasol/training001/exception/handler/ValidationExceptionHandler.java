@@ -1,4 +1,4 @@
-package com.rasol.training001.exception;
+package com.rasol.training001.exception.handler;
 
 import com.rasol.training001.response.ErrorResponse;
 import org.springframework.http.HttpHeaders;
@@ -7,18 +7,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.time.Instant;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.Map;
 
 @ControllerAdvice
 public class ValidationExceptionHandler extends ResponseEntityExceptionHandler {
-
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                HttpHeaders headers,
@@ -29,7 +25,8 @@ public class ValidationExceptionHandler extends ResponseEntityExceptionHandler {
             String errorMessage = error.getDefaultMessage();
             errors.put(fieldName, errorMessage);
         });
-        ErrorResponse errorResponse = new ErrorResponse(status, request, errors);
+        ErrorResponse errorResponse = new ErrorResponse(request, errors);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
+
 }
