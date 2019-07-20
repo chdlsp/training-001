@@ -8,6 +8,7 @@ public class BaseResponse {
     private Map<String, String> errors;
     private String path;
     private String error;
+    private String body;
 
     public String getTimestamp() {
         return timestamp;
@@ -51,6 +52,15 @@ public class BaseResponse {
 
     protected BaseResponse setError(String error) {
         this.error = error;
+        return this;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    protected BaseResponse setBody(String body) {
+        this.body = body;
         return this;
     }
 }

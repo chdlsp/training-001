@@ -1,12 +1,15 @@
 package com.rasol.training001.controller;
 
 import com.rasol.training001.model.dto.User;
+import com.rasol.training001.response.RestResponseEntity;
 import com.rasol.training001.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -20,8 +23,10 @@ public class UserController {
     }
 
     @PostMapping()
-    public User createUser(@RequestBody @Valid User user){
-        return userService.createUser(user);
+    public RestResponseEntity createUser(@RequestBody @Valid User user, HttpServletRequest request){
+        userService.createUser(user);
+
+        return new RestResponseEntity(request, user);
     }
 
     @PostMapping("/login")

@@ -1,18 +1,23 @@
 package com.rasol.training001.response;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.context.request.ServletWebRequest;
-import org.springframework.web.context.request.WebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.Instant;
-import java.util.Map;
 
 public class SuccessResponse extends BaseResponse{
-    public SuccessResponse(HttpStatus status, WebRequest request, Map<String, String> errors){
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+    public SuccessResponse(HttpServletRequest request, Object body){
         setTimestamp(Instant.now().toString());
-        setStatus(status.value());
-        setError(status.name());
-        setPath(((ServletWebRequest)request).getRequest().getRequestURI());
-        setErrors(errors);
+        setStatus(HttpStatus.OK.value());
+        setPath(request.getRequestURI());
+        try {
+            setBody(mapper.writeValueAsString(body));
+        }catch(JsonProcessingException e){
+            e.printStackTrace();
+        }
     }
 }
