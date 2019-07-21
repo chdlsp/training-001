@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -48,7 +47,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User loginUser(User user){
         UserEntity userEntity = userRepository.findById(user.getId()).orElseGet(() -> {
-            throw NotFoundException.getUserIsNotExistsException();
+            throw NotFoundException.getUserNotFoundException();
         });
         if(!userEntity.getPassword().equals(this.encryptPassword(user.getPassword()))){
             throw UnAuthorizedException.getUserPasswordIsNotCorrectException();

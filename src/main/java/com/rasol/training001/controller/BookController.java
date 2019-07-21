@@ -1,15 +1,13 @@
 package com.rasol.training001.controller;
 
+import com.rasol.training001.exception.RestException;
 import com.rasol.training001.model.dto.Book;
+import com.rasol.training001.model.response.SimpleBook;
 import com.rasol.training001.response.RestResponseEntity;
 import com.rasol.training001.service.BookService;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
@@ -30,16 +28,19 @@ public class BookController {
             @RequestParam(value = "target", required = false, defaultValue = "title") String target,
             HttpServletRequest request){
 
-        List<Book> bookList = bookService.getBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size, target);
+        List<SimpleBook> SimpleBookList = bookService.getSimpleBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size, target);
 
-        return new RestResponseEntity(request, bookList);
+        return new RestResponseEntity(request, SimpleBookList);
     }
 
-    @GetMapping("/{isbn}")
+    @GetMapping("/isbns/{isbn}")
     public RestResponseEntity getBookDetail(
-            @PathVariable(value = "isbn") String isbn){
+            @PathVariable(value = "isbn") String isbn,
+            HttpServletRequest request){
 
-        return null;
+        Book book = bookService.getBookByIsbn(isbn);
+
+        return new RestResponseEntity(request, book);
 
     }
 

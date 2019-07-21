@@ -8,7 +8,11 @@ public class NotFoundException extends RestException {
         super(message, HttpStatus.NOT_FOUND);
     }
 
-    public static NotFoundException getUserIsNotExistsException(){
-        return new NotFoundException(ErrorCodes.Constants.USER_ID_IS_NOT_EXISTS_ERROR);
+    public static NotFoundException getUserNotFoundException(){
+        return new NotFoundException(ErrorCodes.Constants.USER_NOT_FOUND_ERROR);
+    }
+
+    public static NotFoundException getBookNotFoundException(){
+        return new NotFoundException(ErrorCodes.Constants.BOOK_NOT_FOUND_ERROR);
     }
 }
