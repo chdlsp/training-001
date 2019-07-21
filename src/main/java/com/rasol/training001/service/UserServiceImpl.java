@@ -2,7 +2,6 @@ package com.rasol.training001.service;
 
 import com.rasol.training001.exception.ConflictException;
 import com.rasol.training001.exception.NotFoundException;
-import com.rasol.training001.exception.UnAuthorizedException;
 import com.rasol.training001.model.dto.User;
 import com.rasol.training001.model.entity.UserEntity;
 import com.rasol.training001.repository.UserRepository;
@@ -11,16 +10,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,6 +24,7 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.authenticationManager = authenticationManager;
@@ -37,8 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
-        UserEntity userEntity = new UserEntity().setId(user.getId()).setPassword(passwordEncoder.encode(user.getPassword()));
-        userRepository.findById(user.getId()).ifPresent( k -> {
+        UserEntity userEntity = new UserEntity().setUserId(user.getUserId()).setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepository.findById(user.getUserId()).ifPresent(k -> {
             throw ConflictException.getUserAlreadyExistsException();
         });
 
@@ -61,12 +57,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginUser(User user, HttpServletRequest request, HttpSession httpSession){
-        UserEntity userEntity = userRepository.findById(user.getId()).orElseGet(() -> {
+        UserEntity userEntity = userRepository.findById(user.getUserId()).orElseGet(() -> {
             throw NotFoundException.getUserNotFoundException();
         });
 
         final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                user.getId(), user.getPassword());
+                user.getUserId(), user.getPassword());
         final Authentication authentication = this.authenticationManager.authenticate(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final HttpSession session = request.getSession(true);

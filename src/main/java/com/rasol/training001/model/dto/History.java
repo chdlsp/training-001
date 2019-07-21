@@ -3,16 +3,16 @@ package com.rasol.training001.model.dto;
 import java.util.Date;
 
 public class History {
-    private String searcherId;
+    private String userId;
     private String keyword;
     private Date date;
 
-    public String getSearcherId() {
-        return searcherId;
+    public String getUserId() {
+        return userId;
     }
 
-    public History setSearcherId(String searcherId) {
-        this.searcherId = searcherId;
+    public History setUserId(String userId) {
+        this.userId = userId;
         return this;
     }
 

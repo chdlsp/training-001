@@ -9,10 +9,10 @@ public class SecurityUser extends User {
     public static final String ROLE_USER = "USER";
 
 //    public SecurityUser(com.rasol.training001.model.dto.User user){
-//        super(user.getId(), user.getPassword(), new ArrayDeque<>());
+//        super(user.getUserId(), user.getPassword(), new ArrayDeque<>());
 //    }
 
     public SecurityUser(UserEntity user){
-        super(user.getId(), user.getPassword(), new ArrayDeque<>());
+        super(user.getUserId(), user.getPassword(), new ArrayDeque<>());
     }
 }

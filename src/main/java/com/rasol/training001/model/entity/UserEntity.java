@@ -10,17 +10,17 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class UserEntity extends BaseEntity{
     @Id
-    private String id;
+    private String userId;
 
     @Column(columnDefinition="char(64)", nullable = false)
     private String password;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public UserEntity setId(String id) {
-        this.id = id;
+    public UserEntity setUserId(String userId) {
+        this.userId = userId;
         return this;
     }
 

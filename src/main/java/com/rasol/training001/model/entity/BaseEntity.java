@@ -19,6 +19,7 @@ public class BaseEntity {
     @PrePersist
     protected void onCreate(){
         createdDate = Instant.now().toString();
+        modifiedDate = Instant.now().toString();
     }
 
     @PreUpdate

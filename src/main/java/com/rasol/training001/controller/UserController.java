@@ -4,6 +4,7 @@ import com.rasol.training001.code.ErrorCodes;
 import com.rasol.training001.model.dto.User;
 import com.rasol.training001.response.RestResponseEntity;
 import com.rasol.training001.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,11 +26,9 @@ public class UserController {
 
     private final UserService userService;
 
-    private final AuthenticationManager authenticationManagerBean;
-
-    public UserController(UserService userService, AuthenticationManager authenticationManagerBean){
+    @Autowired
+    public UserController(UserService userService){
         this.userService = userService;
-        this.authenticationManagerBean = authenticationManagerBean;
     }
 
     @PostMapping()

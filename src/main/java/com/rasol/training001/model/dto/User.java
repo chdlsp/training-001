@@ -8,17 +8,17 @@ import javax.validation.constraints.Size;
 public class User {
     @Size(max=255, message = ErrorCodes.Constants.USER_ID_MAX_LENGTH_ERROR)
     @NotBlank(message = ErrorCodes.Constants.USER_ID_MANDATORY_ERROR)
-    private String id;
+    private String userId;
 
     @NotBlank(message = ErrorCodes.Constants.USER_PASSWORD_MANDATORY_ERROR)
     private String password;
 
-    public String getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public User setId(String id) {
-        this.id = id;
+    public User setUserId(String userId) {
+        this.userId = userId;
         return this;
     }
 

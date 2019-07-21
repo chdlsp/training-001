@@ -6,7 +6,8 @@ import com.rasol.training001.model.response.SimpleBook;
 import java.util.List;
 
 public interface BookService {
-    List<SimpleBook> getSimpleBookListByKeywordAndPageAndSizeAndTarget(String keyword, Integer page, Integer size, String target);
+
+    List<SimpleBook> getSimpleBookListByKeywordAndPageAndSizeAndTarget(String keyword, Integer page, Integer size);
 
     Book getBookByIsbn(String isbn);
 }

@@ -29,8 +29,8 @@ public class KakaoServiceImpl implements KakaoService{
     }
 
     @Override
-    public List<Book> getBookListByKeywordAndPageAndSizeAndTarget(String keyword, Integer page, Integer size, String target) {
-        String fullUrl = this.createFullUrl(keyword, page, size, target);
+    public List<Book> getBookListByKeywordAndPageAndSizeAndTarget(String keyword, Integer page, Integer size) {
+        String fullUrl = this.createFullUrl(keyword, page, size);
 
         return Optional.ofNullable(this.getKakaoBook(fullUrl)).orElseGet(KakaoBook::new).getBooks();
     }
@@ -54,8 +54,8 @@ public class KakaoServiceImpl implements KakaoService{
         return Constants.kakaoBaseUrl + Constants.kakaoApiUrl + "?target=isbn" + url;
     }
 
-    private String createFullUrl(String keyword, Integer page, Integer size, String target){
-        return Constants.kakaoBaseUrl + Constants.kakaoApiUrl + "?target=" + target + "&query=" + keyword + "&page=" + page + "&size=" + size;
+    private String createFullUrl(String keyword, Integer page, Integer size){
+        return Constants.kakaoBaseUrl + Constants.kakaoApiUrl + "?query=" + keyword + "&page=" + page + "&size=" + size;
     }
 
     private KakaoBook getKakaoBook(String url){

@@ -5,6 +5,8 @@ import com.rasol.training001.model.dto.Book;
 import com.rasol.training001.model.response.SimpleBook;
 import com.rasol.training001.response.RestResponseEntity;
 import com.rasol.training001.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +18,7 @@ public class BookController {
 
     private final BookService bookService;
 
+    @Autowired
     public BookController(BookService bookService){
         this.bookService = bookService;
     }
@@ -25,10 +28,8 @@ public class BookController {
             @RequestParam(value = "keyword") String keyword,
             @RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "10") Integer size,
-            @RequestParam(value = "target", required = false, defaultValue = "title") String target,
             HttpServletRequest request){
-
-        List<SimpleBook> SimpleBookList = bookService.getSimpleBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size, target);
+        List<SimpleBook> SimpleBookList = bookService.getSimpleBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size);
 
         return new RestResponseEntity(request, SimpleBookList);
     }
