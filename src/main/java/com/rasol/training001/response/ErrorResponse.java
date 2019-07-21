@@ -10,10 +10,10 @@ import java.time.Instant;
 import java.util.Map;
 
 public class ErrorResponse extends BaseResponse{
-    public ErrorResponse(WebRequest request, Map<String, String> errors){
+    public ErrorResponse(WebRequest request, String message){
         setTimestamp(Instant.now().toString());
         setPath(((ServletWebRequest)request).getRequest().getRequestURI());
-        setErrors(errors);
+        setMessage(message);
     }
 
     public ErrorResponse(HttpServletRequest request, String message){

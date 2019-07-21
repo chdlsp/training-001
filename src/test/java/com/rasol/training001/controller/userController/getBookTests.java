@@ -14,9 +14,10 @@ import org.springframework.test.web.servlet.ResultActions;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import static org.hamcrest.Matchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -38,7 +39,81 @@ public class getBookTests {
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isOk());
-//                .andExpect(jsonPath("body").value(objectMapper.writeValueAsString(resultUser)));
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.body", hasSize(10)));
+//                .andExpect(jsonPath("$.body[*].title", contains(equalToIgnoringCase("test"))));
+    }
+
+    @Test
+    public void emptyKeyword_400() throws Exception{
+        String keyword = "";
+
+        final ResultActions resultActions = mockMvc.perform(get("/books")
+                .param("keyword", keyword)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void pageOverMax_400() throws Exception{
+        String keyword = "test";
+        String page = "101";
+
+        final ResultActions resultActions = mockMvc.perform(get("/books")
+                .param("keyword", keyword)
+                .param("page", page)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void pageUnderMin_400() throws Exception{
+        String keyword = "test";
+        String page = "0";
+
+        final ResultActions resultActions = mockMvc.perform(get("/books")
+                .param("keyword", keyword)
+                .param("page", page)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void sizeOverMax_400() throws Exception{
+        String keyword = "test";
+        String size = "51";
+
+        final ResultActions resultActions = mockMvc.perform(get("/books")
+                .param("keyword", keyword)
+                .param("size", size)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void sizeUnderMin_400() throws Exception{
+        String keyword = "test";
+        String size = "0";
+
+        final ResultActions resultActions = mockMvc.perform(get("/books")
+                .param("keyword", keyword)
+                .param("size", size)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest());
     }
 }

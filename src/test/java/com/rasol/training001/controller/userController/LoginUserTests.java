@@ -51,7 +51,7 @@ public class LoginUserTests {
 
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("body").value(objectMapper.writeValueAsString(resultUser)));
+                .andExpect(jsonPath("$.body.id").value(resultUser.getId()));
     }
 
     @Test
@@ -88,6 +88,38 @@ public class LoginUserTests {
         resultActions
                 .andExpect(status().isUnauthorized())
                 .andExpect(jsonPath("$.message").value(ErrorCodes.Constants.USER_PASSWORD_IS_WRONG_ERROR));
+    }
+
+    @Test
+    public void emptyUserId_400() throws Exception{
+
+        User user = new User().setId("").setPassword("testPassword");
+//        User resultUser = new User().setId("testId");
+
+        final ResultActions resultActions = mockMvc.perform(post("/users/login")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_ID_MANDATORY_ERROR.getErrorMessage()));
+    }
+
+    @Test
+    public void emptyUserPassword_400() throws Exception{
+
+        User user = new User().setId("test").setPassword("");
+//        User resultUser = new User().setId("testId");
+
+        final ResultActions resultActions = mockMvc.perform(post("/users/login")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print());
+
+        resultActions
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_PASSWORD_MANDATORY_ERROR.getErrorMessage()));
     }
 
 }

@@ -70,7 +70,7 @@ public class CreateUserTests {
     }
 
     @Test
-    public void notBlankUserId_400() throws Exception{
+    public void emptyUserId_400() throws Exception{
 
         User user = new User().setId("").setPassword("testPassword");
 //        User resultUser = new User().setId("testId");
@@ -82,11 +82,11 @@ public class CreateUserTests {
 
         resultActions
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors.id").value(ErrorCodes.USER_ID_MANDATORY_ERROR.getErrorMessage()));
+                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_ID_MANDATORY_ERROR.getErrorMessage()));
     }
 
     @Test
-    public void notBlankUserPassword_400() throws Exception{
+    public void emptyUserPassword_400() throws Exception{
 
         User user = new User().setId("test").setPassword("");
 //        User resultUser = new User().setId("testId");
@@ -98,25 +98,7 @@ public class CreateUserTests {
 
         resultActions
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors.password").value(ErrorCodes.USER_PASSWORD_MANDATORY_ERROR.getErrorMessage()));
-    }
-
-    @Test
-    public void notBlankUserPasswordAndId_400() throws Exception{
-
-        User user = new User().setId("").setPassword("");
-//        User resultUser = new User().setId("testId");
-
-        final ResultActions resultActions = mockMvc.perform(post("/users")
-                .content(objectMapper.writeValueAsString(user))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print());
-
-        resultActions
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors.id").value(ErrorCodes.USER_ID_MANDATORY_ERROR.getErrorMessage()))
-                .andExpect(jsonPath("$.errors.password").value(ErrorCodes.USER_PASSWORD_MANDATORY_ERROR.getErrorMessage()));
-
+                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_PASSWORD_MANDATORY_ERROR.getErrorMessage()));
     }
 
     @Test
@@ -156,7 +138,7 @@ public class CreateUserTests {
 
         resultActions
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.errors.id").value(ErrorCodes.USER_ID_MAX_LENGTH_ERROR.getErrorMessage()));
+                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_ID_MAX_LENGTH_ERROR.getErrorMessage()));
     }
 
 

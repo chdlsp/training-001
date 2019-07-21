@@ -3,9 +3,13 @@ package com.rasol.training001.controller;
 import com.rasol.training001.model.dto.Book;
 import com.rasol.training001.response.RestResponseEntity;
 import com.rasol.training001.service.BookService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController

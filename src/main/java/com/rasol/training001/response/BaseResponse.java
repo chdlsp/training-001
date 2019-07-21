@@ -6,7 +6,6 @@ import java.util.Map;
 
 public class BaseResponse {
     private String timestamp;
-    private Map<String, String> errors;
     private String path;
     private Object body;
     private String message;
@@ -17,15 +16,6 @@ public class BaseResponse {
 
     protected BaseResponse setTimestamp(String timestamp) {
         this.timestamp = timestamp;
-        return this;
-    }
-
-    public Map<String, String> getErrors() {
-        return errors;
-    }
-
-    protected BaseResponse setErrors(Map<String, String> errors) {
-        this.errors = errors;
         return this;
     }
 

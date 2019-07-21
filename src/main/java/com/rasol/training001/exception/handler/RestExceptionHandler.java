@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.ConstraintViolationException;
 
 @ControllerAdvice
 public class RestExceptionHandler {
@@ -17,4 +18,11 @@ public class RestExceptionHandler {
         ErrorResponse errorResponse = new ErrorResponse(request, e.getMessage());
         return new ResponseEntity<>(errorResponse, e.getHttpStatus());
     }
+
+//    @ExceptionHandler(ConstraintViolationException.class)
+//    public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e,
+//                                                      HttpServletRequest request) {
+//        ErrorResponse errorResponse = new ErrorResponse(request, e.getMessage());
+//        return new ResponseEntity<>(errorResponse, e.getHttpStatus());
+//    }
 }
