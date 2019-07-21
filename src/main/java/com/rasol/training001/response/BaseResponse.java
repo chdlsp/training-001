@@ -9,6 +9,26 @@ public class BaseResponse {
     private String path;
     private Object body;
     private String message;
+    private String error;
+    private Integer status;
+
+    public String getError() {
+        return error;
+    }
+
+    public BaseResponse setError(String error) {
+        this.error = error;
+        return this;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public BaseResponse setStatus(Integer status) {
+        this.status = status;
+        return this;
+    }
 
     public String getTimestamp() {
         return timestamp;

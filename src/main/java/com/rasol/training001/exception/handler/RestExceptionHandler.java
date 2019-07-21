@@ -15,7 +15,7 @@ public class RestExceptionHandler {
     @ExceptionHandler(RestException.class)
     public ResponseEntity<Object> handleRestException(RestException e,
                                                       HttpServletRequest request) {
-        ErrorResponse errorResponse = new ErrorResponse(request, e.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(e.getHttpStatus(), request, e.getMessage());
         return new ResponseEntity<>(errorResponse, e.getHttpStatus());
     }
 

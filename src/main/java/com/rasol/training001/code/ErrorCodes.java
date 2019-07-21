@@ -1,6 +1,7 @@
 package com.rasol.training001.code;
 
 public enum ErrorCodes {
+    ACCESS_DENIED(Constants.ACCESS_DENIED),
     BOOK_NOT_FOUND_ERROR(Constants.BOOK_NOT_FOUND_ERROR),
     USER_PASSWORD_IS_WRONG_ERROR(Constants.USER_PASSWORD_IS_WRONG_ERROR),
     USER_NOT_FOUND_ERROR(Constants.USER_NOT_FOUND_ERROR),
@@ -17,6 +18,8 @@ public enum ErrorCodes {
         public static final String USER_ID_ALREADY_EXISTS_ERROR = "user already exists.";
         public static final String USER_NOT_FOUND_ERROR = "user not found";
         public static final String BOOK_NOT_FOUND_ERROR = "book not found";
+        public static final String ACCESS_DENIED = "Access Denied";
+
 
 
     }

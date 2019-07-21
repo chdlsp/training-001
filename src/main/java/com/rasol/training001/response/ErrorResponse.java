@@ -16,10 +16,12 @@ public class ErrorResponse extends BaseResponse{
         setMessage(message);
     }
 
-    public ErrorResponse(HttpServletRequest request, String message){
+    public ErrorResponse(HttpStatus httpstatus, HttpServletRequest request, String message){
         setTimestamp(Instant.now().toString());
         setPath(request.getRequestURI());
         setMessage(message);
+        setStatus(httpstatus.value());
+        setError(httpstatus.name());
     }
 
 }
