@@ -6,6 +6,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Map;
 
@@ -16,12 +17,12 @@ public class ErrorResponse extends BaseResponse{
         setMessage(message);
     }
 
-    public ErrorResponse(HttpStatus httpstatus, HttpServletRequest request, String message){
+    public ErrorResponse(HttpStatus httpStatus, HttpServletRequest request, String message){
         setTimestamp(Instant.now().toString());
         setPath(request.getRequestURI());
         setMessage(message);
-        setStatus(httpstatus.value());
-        setError(httpstatus.name());
+        setStatus(httpStatus.value());
+        setError(httpStatus.getReasonPhrase());
     }
 
 }
