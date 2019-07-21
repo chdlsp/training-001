@@ -3,21 +3,16 @@ package com.rasol.training001.controller.userController;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rasol.training001.code.ErrorCodes;
 import com.rasol.training001.model.dto.User;
-import com.rasol.training001.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-
-import javax.transaction.Transactional;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -37,8 +32,8 @@ public class CreateUserTests {
     @Test
     public void validUser_200() throws Exception{
 
-        User user = new User().setId("testId").setPassword("testPassword");
-        User resultUser = new User().setId("testId");
+        User user = new User().setUserId("testId").setPassword("testPassword");
+        User resultUser = new User().setUserId("testId");
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -53,7 +48,7 @@ public class CreateUserTests {
     @Test
     public void alreadyExistsUser_409() throws Exception{
 
-        User user = new User().setId("testId").setPassword("testPassword");
+        User user = new User().setUserId("testId").setPassword("testPassword");
 
         mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -72,8 +67,8 @@ public class CreateUserTests {
     @Test
     public void emptyUserId_400() throws Exception{
 
-        User user = new User().setId("").setPassword("testPassword");
-//        User resultUser = new User().setId("testId");
+        User user = new User().setUserId("").setPassword("testPassword");
+//        User resultUser = new User().setUserId("testId");
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -88,8 +83,8 @@ public class CreateUserTests {
     @Test
     public void emptyUserPassword_400() throws Exception{
 
-        User user = new User().setId("test").setPassword("");
-//        User resultUser = new User().setId("testId");
+        User user = new User().setUserId("test").setPassword("");
+//        User resultUser = new User().setUserId("testId");
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -108,8 +103,8 @@ public class CreateUserTests {
             maxLengthUserId = maxLengthUserId + "1";
         }
 
-        User user = new User().setId(maxLengthUserId).setPassword("testPassword");
-        User resultUser = new User().setId(maxLengthUserId);
+        User user = new User().setUserId(maxLengthUserId).setPassword("testPassword");
+        User resultUser = new User().setUserId(maxLengthUserId);
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -128,8 +123,8 @@ public class CreateUserTests {
             maxLengthUserId = maxLengthUserId + "1";
         }
 
-        User user = new User().setId(maxLengthUserId).setPassword("testPassword");
-        User resultUser = new User().setId(maxLengthUserId);
+        User user = new User().setUserId(maxLengthUserId).setPassword("testPassword");
+        User resultUser = new User().setUserId(maxLengthUserId);
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))

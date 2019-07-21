@@ -32,8 +32,8 @@ public class LoginUserTests {
     @Test
     public void validUser_200() throws Exception{
 
-        User user = new User().setId("testId").setPassword("testPassword");
-        User resultUser = new User().setId("testId");
+        User user = new User().setUserId("testId").setPassword("testPassword");
+        User resultUser = new User().setUserId("testId");
 
         mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -47,13 +47,13 @@ public class LoginUserTests {
 
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.body.id").value(resultUser.getId()));
+                .andExpect(jsonPath("$.body.id").value(resultUser.getUserId()));
     }
 
     @Test
     public void userNotFound_404() throws Exception{
 
-        User user = new User().setId("testId").setPassword("testPassword");
+        User user = new User().setUserId("testId").setPassword("testPassword");
 
         final ResultActions resultActions = this.mockMvc.perform(post("/users/login")
                 .content(objectMapper.writeValueAsString(user))
@@ -68,8 +68,8 @@ public class LoginUserTests {
     @Test
     public void passwordWrong_401() throws Exception{
 
-        User user = new User().setId("testId").setPassword("testPassword");
-        User loginUser = new User().setId("testId").setPassword("wrongPassword");
+        User user = new User().setUserId("testId").setPassword("testPassword");
+        User loginUser = new User().setUserId("testId").setPassword("wrongPassword");
 
         mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -89,8 +89,8 @@ public class LoginUserTests {
     @Test
     public void emptyUserId_400() throws Exception{
 
-        User user = new User().setId("").setPassword("testPassword");
-//        User resultUser = new User().setId("testId");
+        User user = new User().setUserId("").setPassword("testPassword");
+//        User resultUser = new User().setUserId("testId");
 
         final ResultActions resultActions = mockMvc.perform(post("/users/login")
                 .content(objectMapper.writeValueAsString(user))
@@ -105,8 +105,8 @@ public class LoginUserTests {
     @Test
     public void emptyUserPassword_400() throws Exception{
 
-        User user = new User().setId("test").setPassword("");
-//        User resultUser = new User().setId("testId");
+        User user = new User().setUserId("test").setPassword("");
+//        User resultUser = new User().setUserId("testId");
 
         final ResultActions resultActions = mockMvc.perform(post("/users/login")
                 .content(objectMapper.writeValueAsString(user))
