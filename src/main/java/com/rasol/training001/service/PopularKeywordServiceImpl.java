@@ -6,6 +6,9 @@ import com.rasol.training001.repository.PopularKeywordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class PopularKeywordServiceImpl implements PopularKeywordService {
     private final PopularKeywordRepository popularKeywordRepository;
@@ -22,5 +25,13 @@ public class PopularKeywordServiceImpl implements PopularKeywordService {
         popularKeywordRepository.save(popularKeywordEntity);
 
         return new PopularKeyword(popularKeywordEntity);
+    }
+
+    @Override
+    public List<PopularKeyword> getPopularKeywordListOrderByCountDesc(){
+        return popularKeywordRepository.findAllByOrderByCountDesc()
+                .stream()
+                .map(PopularKeyword::new)
+                .collect(Collectors.toList());
     }
 }
