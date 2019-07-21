@@ -12,7 +12,7 @@ public class History {
 
     public History(HistoryEntity historyEntity){
         this.userId = historyEntity.getUserId();
-        this.keyword = historyEntity.getUserId();
+        this.keyword = historyEntity.getKeyword();
         this.date = historyEntity.getModifiedDate();
     }
 
