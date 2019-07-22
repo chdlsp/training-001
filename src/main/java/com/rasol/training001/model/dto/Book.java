@@ -44,11 +44,6 @@ public class Book {
             e.printStackTrace();
             setDateTime(naverBook.getDateTime());
         }
-        this.setDateTime(LocalDate.parse(naverBook.getDateTime(),DateTimeFormatter.BASIC_ISO_DATE)
-                .atStartOfDay()
-                .toInstant(ZoneOffset.ofHours(9))
-                .atOffset(ZoneOffset.ofHours(9))
-                .toString());
         this.setAuthors(Arrays.stream(naverBook.getAuthors().split("\\|")).collect(Collectors.toList()));
         this.setPublisher(naverBook.getPublisher());
         this.setPrice(naverBook.getPrice());
