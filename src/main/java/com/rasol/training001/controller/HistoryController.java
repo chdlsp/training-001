@@ -6,13 +6,17 @@ import com.rasol.training001.response.RestResponseEntity;
 import com.rasol.training001.service.HistoryService;
 import com.rasol.training001.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @RestController
 @RequestMapping("/histories")
+@Validated
 public class HistoryController extends BaseController{
 
     private final HistoryService historyService;
@@ -24,7 +28,7 @@ public class HistoryController extends BaseController{
 
     @GetMapping("/users/{userId}")
     public RestResponseEntity getHistoriesOrderByDateDesc(
-            @PathVariable("userId") String userId,
+            @PathVariable("userId") @Valid @NotBlank String userId,
             HttpServletRequest request){
         checkValidRequestUser(userId);
 
