@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.ConstraintViolationException;
+import java.util.stream.Collectors;
 
 @ControllerAdvice
 public class RestExceptionHandler {
@@ -34,7 +35,7 @@ public class RestExceptionHandler {
                                                                HttpServletRequest request) {
 
         String error = e.getBindingResult().getAllErrors().stream().map((objectError) ->
-                    objectError.getObjectName() + "." + ((FieldError) objectError).getField() + ": " + objectError.getDefaultMessage()).reduce(String::concat).orElse("");
+                    objectError.getObjectName() + "." + ((FieldError) objectError).getField() + ": " + objectError.getDefaultMessage()).collect(Collectors.joining(", "));
 
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, request, error);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
