@@ -55,8 +55,9 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public Book getBookByIsbn(String isbn){
-        Book book = Optional.ofNullable(Optional.ofNullable(internalQueryBookService.getBookByIsbn(isbn)).orElseGet(()
-                        -> kakaoQueryBookService.getBookByIsbn(isbn))).orElseGet(()
+        Book book = Optional.ofNullable(Optional.ofNullable(
+                internalQueryBookService.getBookByIsbn(isbn)).orElseGet(()
+                -> kakaoQueryBookService.getBookByIsbn(isbn))).orElseGet(()
                 -> naverQueryBookService.getBookByIsbn(isbn));
         Optional.ofNullable(book).ifPresent(b -> bookRepository.save(new BookEntity(b)));
         return Optional.ofNullable(book).orElseThrow(NotFoundException::getBookNotFoundException);

@@ -2,6 +2,7 @@ package com.rasol.training001.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rasol.training001.model.dto.querybook.NaverBook;
+import com.rasol.training001.model.entity.BookEntity;
 import com.rasol.training001.util.TimeUtils;
 
 import java.text.SimpleDateFormat;
@@ -37,6 +38,18 @@ public class Book {
         this.setPrice(naverBook.getPrice());
         this.setSalePrice(naverBook.getSalePrice());
         this.setThumbnail(naverBook.getThumbnail());
+    }
+
+    public Book(BookEntity bookEntity){
+        this.setTitle(bookEntity.getTitle());
+        this.setContents(bookEntity.getContents());
+        this.setIsbn(String.join(" ", bookEntity.getIsbn10(), bookEntity.getIsbn13()));
+        this.setDateTime(bookEntity.getDateTime());
+        this.setAuthors(Arrays.stream(bookEntity.getAuthors().split("\\|")).collect(Collectors.toList()));
+        this.setPublisher(bookEntity.getPublisher());
+        this.setPrice(bookEntity.getPrice());
+        this.setSalePrice(bookEntity.getSalePrice());
+        this.setThumbnail(bookEntity.getThumbnail());
     }
 
     public String getTitle() {

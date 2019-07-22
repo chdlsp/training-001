@@ -57,9 +57,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User loginUser(User user, HttpServletRequest request, HttpSession httpSession){
-        UserEntity userEntity = userRepository.findById(user.getUserId()).orElseGet(() -> {
-            throw NotFoundException.getUserNotFoundException();
-        });
+        UserEntity userEntity = userRepository.findById(user.getUserId()).orElseThrow(NotFoundException::getUserNotFoundException);
 
         final UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
                 user.getUserId(), user.getPassword());

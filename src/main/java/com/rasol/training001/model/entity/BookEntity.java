@@ -12,9 +12,9 @@ import javax.persistence.Table;
 @IdClass(BookEntityId.class)
 public class BookEntity extends BaseEntity{
     @Id
-    private String isbn10;
+    private String isbn10 = "";
     @Id
-    private String isbn13;
+    private String isbn13 = "";
     private String title;
     private String contents;
     private String dateTime;
@@ -38,6 +38,10 @@ public class BookEntity extends BaseEntity{
         this.setPrice(book.getPrice());
         this.setSalePrice(book.getSalePrice());
         this.setThumbnail(book.getThumbnail());
+    }
+
+    public Book getBook(){
+        return new Book(this);
     }
 
     public String getIsbn10() {
