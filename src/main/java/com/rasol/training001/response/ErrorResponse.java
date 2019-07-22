@@ -1,5 +1,6 @@
 package com.rasol.training001.response;
 
+import com.rasol.training001.util.TimeUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
@@ -14,13 +15,13 @@ import java.util.Map;
 
 public class ErrorResponse extends BaseResponse{
     public ErrorResponse(WebRequest request, String message){
-        setTimestamp(Instant.now().atOffset(ZoneOffset.ofHours(9)).toString());
+        setTimestamp(TimeUtils.getCurrentISO8601MilliPlusTime());
         setPath(((ServletWebRequest)request).getRequest().getRequestURI());
         setMessage(message);
     }
 
     public ErrorResponse(HttpStatus httpStatus, HttpServletRequest request, String message){
-        setTimestamp(Instant.now().atOffset(ZoneOffset.ofHours(9)).toString());
+        setTimestamp(TimeUtils.getCurrentISO8601MilliPlusTime());
         setPath(request.getRequestURI());
         setMessage(message);
         setStatus(httpStatus.value());

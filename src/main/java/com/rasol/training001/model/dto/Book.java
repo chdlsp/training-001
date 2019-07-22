@@ -2,6 +2,7 @@ package com.rasol.training001.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rasol.training001.model.dto.querybook.NaverBook;
+import com.rasol.training001.util.TimeUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -30,17 +31,7 @@ public class Book {
         this.setTitle(naverBook.getTitle());
         this.setContents(naverBook.getContents());
         this.setIsbn(naverBook.getIsbn());
-
-        SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyyMMdd");
-        SimpleDateFormat resultDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-        Date date;
-        try {
-            date = sourceDateFormat.parse(naverBook.getDateTime());
-            setDateTime(resultDateFormat.format(date));
-        }catch(Exception e){
-            e.printStackTrace();
-            setDateTime(naverBook.getDateTime());
-        }
+        this.setDateTime(TimeUtils.convertyyyyMMddToISO8601MilliPlusTime(naverBook.getDateTime()));
         this.setAuthors(Arrays.stream(naverBook.getAuthors().split("\\|")).collect(Collectors.toList()));
         this.setPublisher(naverBook.getPublisher());
         this.setPrice(naverBook.getPrice());
