@@ -1,6 +1,7 @@
 package com.rasol.training001.model.entity;
 
 import ch.qos.logback.core.util.TimeUtil;
+import com.rasol.training001.util.TimeUtils;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -18,13 +19,13 @@ public class BaseEntity {
 
     @PrePersist
     protected void onCreate(){
-        createdDate = Instant.now().toString();
-        modifiedDate = Instant.now().toString();
+        createdDate = TimeUtils.getCurrentISO8601MilliPlusTime();
+        modifiedDate = TimeUtils.getCurrentISO8601MilliPlusTime();
     }
 
     @PreUpdate
     protected void onUpdate(){
-        modifiedDate = Instant.now().toString();
+        modifiedDate = TimeUtils.getCurrentISO8601MilliPlusTime();
     }
 
     public String getCreatedDate() {

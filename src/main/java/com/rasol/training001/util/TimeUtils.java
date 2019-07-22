@@ -11,7 +11,7 @@ public class TimeUtils {
         return Instant.now().atOffset(ZoneOffset.ofHours(9)).toString();
     }
 
-    public static String convertyyyyMMddToISO8601MilliPlusTime(String yyyyMMdd){
+    public static String convert_yyyyMMddToISO8601MilliPlusTime(String yyyyMMdd){
         SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyyMMdd");
         SimpleDateFormat resultDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
         Date date;
@@ -22,5 +22,9 @@ public class TimeUtils {
             e.printStackTrace();
             return yyyyMMdd;
         }
+    }
+
+    public static String getCurrentISO8601MilliPlusTimeMinusMilli(Long milliSecond){
+        return Instant.now().minusMillis(milliSecond).atOffset(ZoneOffset.ofHours(9)).toString();
     }
 }

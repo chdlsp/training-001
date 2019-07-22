@@ -5,9 +5,7 @@ import com.rasol.training001.model.dto.querybook.NaverBook;
 import com.rasol.training001.model.entity.BookEntity;
 import com.rasol.training001.util.TimeUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,7 +30,7 @@ public class Book {
         this.setTitle(naverBook.getTitle());
         this.setContents(naverBook.getContents());
         this.setIsbn(naverBook.getIsbn());
-        this.setDateTime(TimeUtils.convertyyyyMMddToISO8601MilliPlusTime(naverBook.getDateTime()));
+        this.setDateTime(TimeUtils.convert_yyyyMMddToISO8601MilliPlusTime(naverBook.getDateTime()));
         this.setAuthors(Arrays.stream(naverBook.getAuthors().split("\\|")).collect(Collectors.toList()));
         this.setPublisher(naverBook.getPublisher());
         this.setPrice(naverBook.getPrice());
