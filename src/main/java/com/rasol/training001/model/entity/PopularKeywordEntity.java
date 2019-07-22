@@ -32,13 +32,4 @@ public class PopularKeywordEntity extends BaseEntity{
         return count;
     }
 
-    public PopularKeywordEntity setCount(Long count) {
-        this.count = count;
-        return this;
-    }
-
-    public PopularKeywordEntity incrementCount(){
-        this.count = this.count + 1;
-        return this;
-    }
 }

@@ -19,12 +19,11 @@ public class PopularKeywordServiceImpl implements PopularKeywordService {
     }
 
     @Override
-    public PopularKeyword createOrUpdatePopularKeyword(String keyword){
-        PopularKeywordEntity popularKeywordEntity = popularKeywordRepository.findById(keyword).orElseGet(() -> new PopularKeywordEntity(keyword)).incrementCount();
+    public void createOrUpdatePopularKeyword(String keyword){
+        popularKeywordRepository.findById(keyword).orElseGet(() -> popularKeywordRepository.save(new PopularKeywordEntity(keyword)));
 
-        popularKeywordRepository.save(popularKeywordEntity);
+        popularKeywordRepository.increaseCount(keyword);
 
-        return new PopularKeyword(popularKeywordEntity);
     }
 
     @Override
