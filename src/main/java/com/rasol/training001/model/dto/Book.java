@@ -3,7 +3,12 @@ package com.rasol.training001.model.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rasol.training001.externelservice.dto.NaverBook;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,7 +33,22 @@ public class Book {
         this.setTitle(naverBook.getTitle());
         this.setContents(naverBook.getContents());
         this.setIsbn(naverBook.getIsbn());
-        this.setDateTime(naverBook.getDateTime());
+
+        SimpleDateFormat sourceDateFormat = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat resultDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        Date date;
+        try {
+            date = sourceDateFormat.parse(naverBook.getDateTime());
+            setDateTime(resultDateFormat.format(date));
+        }catch(Exception e){
+            e.printStackTrace();
+            setDateTime(naverBook.getDateTime());
+        }
+        this.setDateTime(LocalDate.parse(naverBook.getDateTime(),DateTimeFormatter.BASIC_ISO_DATE)
+                .atStartOfDay()
+                .toInstant(ZoneOffset.ofHours(9))
+                .atOffset(ZoneOffset.ofHours(9))
+                .toString());
         this.setAuthors(Arrays.stream(naverBook.getAuthors().split("\\|")).collect(Collectors.toList()));
         this.setPublisher(naverBook.getPublisher());
         this.setPrice(naverBook.getPrice());

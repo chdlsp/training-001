@@ -8,17 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.constraints.NotNull;
 import java.time.Instant;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Map;
 
 public class ErrorResponse extends BaseResponse{
     public ErrorResponse(WebRequest request, String message){
-        setTimestamp(Instant.now().toString());
+        setTimestamp(Instant.now().atOffset(ZoneOffset.ofHours(9)).toString());
         setPath(((ServletWebRequest)request).getRequest().getRequestURI());
         setMessage(message);
     }
 
     public ErrorResponse(HttpStatus httpStatus, HttpServletRequest request, String message){
-        setTimestamp(Instant.now().toString());
+        setTimestamp(Instant.now().atOffset(ZoneOffset.ofHours(9)).toString());
         setPath(request.getRequestURI());
         setMessage(message);
         setStatus(httpStatus.value());
