@@ -18,6 +18,4 @@ public class Constants {
     public static final String NAVER_CLIENT_SECRET = "l_hAGzfLeA";
     public static final String NAVER_CLIENT_ID_KEY = "X-Naver-Client-Id";
     public static final String NAVER_CLIENT_SECRET_KEY = "X-Naver-Client-Secret";
-
-
 }
