@@ -1,7 +1,6 @@
-package com.rasol.training001.externelservice.dto;
+package com.rasol.training001.model.dto.querybook;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rasol.training001.model.dto.Book;
 
 import java.util.ArrayList;
 import java.util.List;

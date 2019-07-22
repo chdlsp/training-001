@@ -1,12 +1,9 @@
 package com.rasol.training001.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rasol.training001.externelservice.dto.NaverBook;
+import com.rasol.training001.model.dto.querybook.NaverBook;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;

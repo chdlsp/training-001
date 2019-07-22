@@ -1,12 +1,10 @@
-package com.rasol.training001.service;
+package com.rasol.training001.service.security;
 
 import com.rasol.training001.exception.NotFoundException;
 import com.rasol.training001.model.dto.SecurityUser;
 import com.rasol.training001.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 

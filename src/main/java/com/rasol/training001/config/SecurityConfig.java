@@ -1,9 +1,6 @@
 package com.rasol.training001.config;
 
-import com.rasol.training001.service.RestUserDetailService;
-import com.rasol.training001.service.RestUserDetailServiceImpl;
-import com.rasol.training001.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.rasol.training001.service.security.RestUserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -13,14 +10,8 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.header.writers.frameoptions.WhiteListedAllowFromStrategy;
-import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
-import org.springframework.stereotype.Component;
-
-import java.util.Arrays;
 
 @EnableWebSecurity
 @Configuration

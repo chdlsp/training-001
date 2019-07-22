@@ -1,6 +1,6 @@
 package com.rasol.training001.service;
 
-import com.rasol.training001.externelservice.QueryBookService;
+import com.rasol.training001.service.querybook.QueryBookService;
 import com.rasol.training001.model.dto.Book;
 import com.rasol.training001.model.response.SimpleBook;
 import org.springframework.beans.factory.annotation.Autowired;
