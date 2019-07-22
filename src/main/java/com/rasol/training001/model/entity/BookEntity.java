@@ -1,15 +1,20 @@
 package com.rasol.training001.model.entity;
 
+import com.rasol.training001.model.dto.Book;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
-import java.util.List;
 
 @Entity
 @Table(name = "books")
+@IdClass(BookEntityId.class)
 public class BookEntity extends BaseEntity{
     @Id
-    private String isbn;
+    private String isbn10;
+    @Id
+    private String isbn13;
     private String title;
     private String contents;
     private String dateTime;
@@ -19,12 +24,37 @@ public class BookEntity extends BaseEntity{
     private Integer salePrice;
     private String thumbnail;
 
-    public String getIsbn() {
-        return isbn;
+    public BookEntity() {
     }
 
-    public BookEntity setIsbn(String isbn) {
-        this.isbn = isbn;
+    public BookEntity(Book book){
+        this.setIsbn10(book.getIsbn().replaceAll("<b>","").replaceAll("</b>","").split(" ")[0]);
+        this.setIsbn13(book.getIsbn().replaceAll("<b>","").replaceAll("</b>","").split(" ")[1]);
+        this.setTitle(book.getTitle());
+        this.setContents(book.getContents());
+        this.setDateTime(book.getDateTime());
+        this.setAuthors(String.join("\\|", book.getAuthors()));
+        this.setPublisher(book.getPublisher());
+        this.setPrice(book.getPrice());
+        this.setSalePrice(book.getSalePrice());
+        this.setThumbnail(book.getThumbnail());
+    }
+
+    public String getIsbn10() {
+        return isbn10;
+    }
+
+    public BookEntity setIsbn10(String isbn10) {
+        this.isbn10 = isbn10;
+        return this;
+    }
+
+    public String getIsbn13() {
+        return isbn13;
+    }
+
+    public BookEntity setIsbn13(String isbn13) {
+        this.isbn13 = isbn13;
         return this;
     }
 

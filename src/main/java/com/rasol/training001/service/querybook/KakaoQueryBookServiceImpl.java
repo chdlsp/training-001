@@ -33,23 +33,20 @@ public class KakaoQueryBookServiceImpl implements QueryBookService {
     public Book getBookByIsbn(String isbn) {
         String isbnUrl = this.createIsbnUrl(isbn);
 
-        KakaoBooks kakaoBooks = Optional.ofNullable(this.getKakaoBook(isbnUrl)).orElseGet(KakaoBooks::new);
-        if(kakaoBooks.getBooks().size()==0){
-            throw NotFoundException.getBookNotFoundException();
-        }
+        KakaoBooks kakaoBooks = Optional.ofNullable(this.getKakaoBook(isbnUrl)).orElse(null);
 
-        return kakaoBooks.getBooks().get(0);
+        return Optional.ofNullable(kakaoBooks).isPresent() ? kakaoBooks.getBooks().get(0) : null;
     }
 
     private String createIsbnUrl(String isbn){
         String url = Arrays.stream(isbn.split(" "))
-                .map(splitIsbn -> "&querybook=" + splitIsbn)
+                .map(splitIsbn -> "&query=" + splitIsbn)
                 .reduce("", String::concat);
         return Constants.KAKAO_BASE_URL + Constants.KAKAO_BOOK_API_URL + "?target=isbn" + url;
     }
 
     private String createFullUrl(String keyword, Integer page, Integer size){
-        return Constants.KAKAO_BASE_URL + Constants.KAKAO_BOOK_API_URL + "?querybook=" + keyword + "&page=" + page + "&size=" + size;
+        return Constants.KAKAO_BASE_URL + Constants.KAKAO_BOOK_API_URL + "?query=" + keyword + "&page=" + page + "&size=" + size;
     }
 
     private KakaoBooks getKakaoBook(String url){

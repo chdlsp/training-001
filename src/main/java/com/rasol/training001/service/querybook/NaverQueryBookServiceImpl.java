@@ -53,13 +53,13 @@ public class NaverQueryBookServiceImpl implements QueryBookService {
 
     private String createIsbnUrl(String isbn){
         String url = Arrays.stream(isbn.split(" "))
-                .map(splitIsbn -> "&querybook=" + splitIsbn)
+                .map(splitIsbn -> "&query=" + splitIsbn)
                 .reduce("", String::concat);
         return Constants.NAVER_BASE_URL + Constants.NAVER_BOOK_API_URL + "?target=isbn" + url;
     }
 
     private String createFullUrl(String keyword, Integer start, Integer display){
-        return Constants.NAVER_BASE_URL + Constants.NAVER_BOOK_API_URL + "?querybook=" + keyword + "&start=" + start + "&display=" + display;
+        return Constants.NAVER_BASE_URL + Constants.NAVER_BOOK_API_URL + "?query=" + keyword + "&start=" + start + "&display=" + display;
     }
 
     private NaverBooks getNaverBook(String url){
