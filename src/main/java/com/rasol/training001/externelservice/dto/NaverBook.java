@@ -1,46 +1,28 @@
-package com.rasol.training001.model.dto;
+package com.rasol.training001.externelservice.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rasol.training001.externelservice.dto.NaverBook;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
-public class Book {
+public class NaverBook {
     private String title;
+    @JsonProperty("description")
     private String contents;
     private String isbn;
-    @JsonProperty("datetime")
+    @JsonProperty("pubdate")
     private String dateTime;
-    private List<String> authors;
+    @JsonProperty("author")
+    private String authors;
     private String publisher;
     private Integer price;
-    @JsonProperty("sale_price")
+    @JsonProperty("discount")
     private Integer salePrice;
+    @JsonProperty("image")
     private String thumbnail;
-
-    public Book(){
-
-    }
-
-    public Book(NaverBook naverBook){
-        this.setTitle(naverBook.getTitle());
-        this.setContents(naverBook.getContents());
-        this.setIsbn(naverBook.getIsbn());
-        this.setDateTime(naverBook.getDateTime());
-        this.setAuthors(Arrays.stream(naverBook.getAuthors().split("\\|")).collect(Collectors.toList()));
-        this.setPublisher(naverBook.getPublisher());
-        this.setPrice(naverBook.getPrice());
-        this.setSalePrice(naverBook.getSalePrice());
-        this.setThumbnail(naverBook.getThumbnail());
-    }
 
     public String getTitle() {
         return title;
     }
 
-    public Book setTitle(String title) {
+    public NaverBook setTitle(String title) {
         this.title = title;
         return this;
     }
@@ -49,7 +31,7 @@ public class Book {
         return contents;
     }
 
-    public Book setContents(String contents) {
+    public NaverBook setContents(String contents) {
         this.contents = contents;
         return this;
     }
@@ -58,7 +40,7 @@ public class Book {
         return isbn;
     }
 
-    public Book setIsbn(String isbn) {
+    public NaverBook setIsbn(String isbn) {
         this.isbn = isbn;
         return this;
     }
@@ -67,16 +49,16 @@ public class Book {
         return dateTime;
     }
 
-    public Book setDateTime(String dateTime) {
+    public NaverBook setDateTime(String dateTime) {
         this.dateTime = dateTime;
         return this;
     }
 
-    public List<String> getAuthors() {
+    public String getAuthors() {
         return authors;
     }
 
-    public Book setAuthors(List<String> authors) {
+    public NaverBook setAuthors(String authors) {
         this.authors = authors;
         return this;
     }
@@ -85,7 +67,7 @@ public class Book {
         return publisher;
     }
 
-    public Book setPublisher(String publisher) {
+    public NaverBook setPublisher(String publisher) {
         this.publisher = publisher;
         return this;
     }
@@ -94,7 +76,7 @@ public class Book {
         return price;
     }
 
-    public Book setPrice(Integer price) {
+    public NaverBook setPrice(Integer price) {
         this.price = price;
         return this;
     }
@@ -103,7 +85,7 @@ public class Book {
         return salePrice;
     }
 
-    public Book setSalePrice(Integer salePrice) {
+    public NaverBook setSalePrice(Integer salePrice) {
         this.salePrice = salePrice;
         return this;
     }
@@ -112,7 +94,7 @@ public class Book {
         return thumbnail;
     }
 
-    public Book setThumbnail(String thumbnail) {
+    public NaverBook setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
         return this;
     }

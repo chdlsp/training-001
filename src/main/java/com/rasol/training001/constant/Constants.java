@@ -5,9 +5,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Constants {
-    public static final String kakaoBaseUrl = "https://dapi.kakao.com";
-    public static final String kakaoApiUrl = "/v3/search/book";
-    public static final String kakaoAppKey = "8a933422d0e43d89b011e9027e2756e8";
-    public static final String kakaoHeaderKey = "Authorization";
+    public static final String KAKAO_BASE_URL = "https://dapi.kakao.com";
+    // error test
+    public static final String KAKAO_BOOK_API_URL = "/v3/search/error";
+//    public static final String KAKAO_BOOK_API_URL = "/v3/search/book";
+    public static final String KAKAO_APP_KEY = "8a933422d0e43d89b011e9027e2756e8";
+    public static final String KAKAO_HEADER_KEY = "Authorization";
+
+    public static final String NAVER_BASE_URL = "https://openapi.naver.com";
+    public static final String NAVER_BOOK_API_URL = "/v1/search/book.json";
+    public static final String NAVER_CLIENT_ID = "i_XB2KjtvLVA8R_Qqkvl";
+    public static final String NAVER_CLIENT_SECRET = "l_hAGzfLeA";
+    public static final String NAVER_CLIENT_ID_KEY = "X-Naver-Client-Id";
+    public static final String NAVER_CLIENT_SECRET_KEY = "X-Naver-Client-Secret";
+
 
 }

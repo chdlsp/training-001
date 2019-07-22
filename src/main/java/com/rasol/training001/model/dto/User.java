@@ -6,11 +6,11 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 public class User {
-    @Size(max=255, message = ErrorCodes.Constants.USER_ID_MAX_LENGTH_ERROR)
-    @NotBlank(message = ErrorCodes.Constants.USER_ID_MANDATORY_ERROR)
+    @Size(max=255)
+    @NotBlank
     private String userId;
 
-    @NotBlank(message = ErrorCodes.Constants.USER_PASSWORD_MANDATORY_ERROR)
+    @NotBlank
     private String password;
 
     public String getUserId() {
