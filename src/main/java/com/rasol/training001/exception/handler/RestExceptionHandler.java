@@ -4,6 +4,8 @@ import com.rasol.training001.exception.RestException;
 import com.rasol.training001.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -24,6 +26,17 @@ public class RestExceptionHandler {
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException e,
                                                       HttpServletRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, request, e.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException e,
+                                                               HttpServletRequest request) {
+
+        String error = e.getBindingResult().getAllErrors().stream().map((objectError) ->
+                    objectError.getObjectName() + "." + ((FieldError) objectError).getField() + ": " + objectError.getDefaultMessage()).reduce(String::concat).orElse("");
+
+        ErrorResponse errorResponse = new ErrorResponse(HttpStatus.BAD_REQUEST, request, error);
         return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
     }
 }
