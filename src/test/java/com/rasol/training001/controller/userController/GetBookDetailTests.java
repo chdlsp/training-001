@@ -128,7 +128,7 @@ public class GetBookDetailTests {
     }
 
     @Test
-    public void notFoundBook_400() throws Exception{
+    public void notFoundBook_404() throws Exception{
 
         String keyword = "123";
 
