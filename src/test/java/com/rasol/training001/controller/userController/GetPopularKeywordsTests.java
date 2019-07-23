@@ -68,7 +68,7 @@ public class GetPopularKeywordsTests {
     @Test
     public void getBookAndGetHistory_200() throws Exception{
 
-        // set history 1
+        // set 3 keywords, 6 histories
         Arrays.stream(keywords).forEach(keyword -> {
             try {
                 mockMvc.perform(get("/books")
