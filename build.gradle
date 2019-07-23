@@ -3,6 +3,10 @@ plugins {
     id 'java'
 }
 
+bootJar {
+    mainClassName = 'com.rasol.training001.Training001Application'
+}
+
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.rasol'
