@@ -32,7 +32,7 @@ public class BookController {
     @GetMapping
     public RestResponseEntity getBooks(
             @RequestParam(value = "keyword") @Valid @NotBlank String keyword,
-            @RequestParam(value = "page", required = false, defaultValue = "1") @Valid @Min(value = 1) @Max(100) Integer page,
+            @RequestParam(value = "page", required = false, defaultValue = "1") @Valid @Min(1) @Max(100) Integer page,
             @RequestParam(value = "size", required = false, defaultValue = "10") @Valid @Min(1) @Max(50) Integer size,
             HttpServletRequest request){
         List<SimpleBook> SimpleBookList = bookService.getSimpleBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size);
