@@ -1,6 +1,8 @@
 # Download url
 https://github.com/temprstemp/training-001/raw/master/training-001-0.0.1-SNAPSHOT.jar
 
+실행 : java -jar training-001-0.0.1-SNAPSHOT.jar
+
 # training-001
 
 # SuccessResponse
