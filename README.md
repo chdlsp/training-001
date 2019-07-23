@@ -116,7 +116,7 @@ ErrorResponse :
 # 3. 검색된 책의 상세 조회  
 
 # 책 상세 조회  
-GET /books/isbsns/{isbn}  
+GET /books/isbns/{isbn}  
 
 - 로그인 세션 필요  
 - cache DB 에서 조회 후 없을시 -> kakao server 에서 조회 후, 에러 시 -> naver server 에서 조회  
