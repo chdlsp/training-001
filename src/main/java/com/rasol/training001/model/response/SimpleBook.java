@@ -1,5 +1,6 @@
 package com.rasol.training001.model.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.rasol.training001.model.dto.Book;
 
 import java.util.List;
@@ -10,6 +11,7 @@ public class SimpleBook {
     private String thumbnail;
     private String contents;
     private List<String> authors;
+    @JsonProperty("datetime")
     private String dateTime;
 
     public SimpleBook(Book book){

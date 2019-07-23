@@ -26,7 +26,6 @@ public class Constants {
     // 1 hour
 
     // error codes
-    public static final String USER_PASSWORD_IS_WRONG_ERROR = "user password is wrong.";
     public static final String USER_ID_ALREADY_EXISTS_ERROR = "user already exists.";
     public static final String USER_NOT_FOUND_ERROR = "user not found";
     public static final String BOOK_NOT_FOUND_ERROR = "book not found";
