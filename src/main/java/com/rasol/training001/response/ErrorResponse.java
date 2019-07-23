@@ -14,12 +14,6 @@ import java.time.ZoneOffset;
 import java.util.Map;
 
 public class ErrorResponse extends BaseResponse{
-    public ErrorResponse(WebRequest request, String message){
-        setTimestamp(TimeUtils.getCurrentISO8601MilliPlusTime());
-        setPath(((ServletWebRequest)request).getRequest().getRequestURI());
-        setMessage(message);
-    }
-
     public ErrorResponse(HttpStatus httpStatus, HttpServletRequest request, String message){
         setTimestamp(TimeUtils.getCurrentISO8601MilliPlusTime());
         setPath(request.getRequestURI());

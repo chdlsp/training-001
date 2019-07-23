@@ -1,7 +1,5 @@
 package com.rasol.training001.model.dto;
 
-import com.rasol.training001.code.ErrorCodes;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 

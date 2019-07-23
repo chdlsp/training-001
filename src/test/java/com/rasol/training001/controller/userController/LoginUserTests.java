@@ -1,7 +1,7 @@
 package com.rasol.training001.controller.userController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rasol.training001.code.ErrorCodes;
+import com.rasol.training001.constant.Constants;
 import com.rasol.training001.model.dto.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,7 +59,7 @@ public class LoginUserTests {
 
         resultActions
                 .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.Constants.USER_NOT_FOUND_ERROR));
+                .andExpect(jsonPath("$.message").value(Constants.USER_NOT_FOUND_ERROR));
     }
 
     @Test

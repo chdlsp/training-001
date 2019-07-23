@@ -58,11 +58,4 @@ class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-//    @Component
-//    public class Guard{
-//        public boolean checkUserId(Authentication authentication, String userId){
-//            return authentication.getName().equals(userId);
-//        }
-//    }
-
 }

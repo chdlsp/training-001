@@ -24,6 +24,11 @@ public class Constants {
 
     public static final Long BOOK_CACHING_TIME = 3600000L;
     // 1 hour
-//    public static final Long BOOK_CACHING_TIME = Timer.ONE_HOUR;
 
+    // error codes
+    public static final String USER_PASSWORD_IS_WRONG_ERROR = "user password is wrong.";
+    public static final String USER_ID_ALREADY_EXISTS_ERROR = "user already exists.";
+    public static final String USER_NOT_FOUND_ERROR = "user not found";
+    public static final String BOOK_NOT_FOUND_ERROR = "book not found";
+    public static final String ACCESS_DENIED = "Access Denied";
 }

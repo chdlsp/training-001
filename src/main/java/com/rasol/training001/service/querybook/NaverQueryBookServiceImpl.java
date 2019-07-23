@@ -68,7 +68,7 @@ public class NaverQueryBookServiceImpl implements QueryBookService {
 
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
-        ResponseEntity<Rss> responseEntity = null;
+        ResponseEntity<Rss> responseEntity;
         Map<String, Object> data;
         try {
             responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, new ParameterizedTypeReference<Rss>() {
@@ -82,7 +82,6 @@ public class NaverQueryBookServiceImpl implements QueryBookService {
             }
             throw new RestException((String)data.get("message"), HttpStatus.BAD_REQUEST);
         }
-//        Optional<KakaoBooks> maybeKakaoBook = Optional.ofNullable(responseEntity.getBody());F
         return Optional.ofNullable(responseEntity.getBody()).map(Rss::getNaverBooks).orElse(null);
 
     }

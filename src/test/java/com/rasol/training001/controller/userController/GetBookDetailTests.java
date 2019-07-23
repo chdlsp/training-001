@@ -1,7 +1,6 @@
 package com.rasol.training001.controller.userController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rasol.training001.code.ErrorCodes;
 import com.rasol.training001.model.dto.User;
 import com.rasol.training001.repository.BookRepository;
 import org.junit.Before;

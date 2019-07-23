@@ -1,7 +1,6 @@
 package com.rasol.training001.service.querybook;
 
 import com.rasol.training001.constant.Constants;
-import com.rasol.training001.exception.NotFoundException;
 import com.rasol.training001.model.dto.querybook.KakaoBooks;
 import com.rasol.training001.model.dto.Book;
 import org.springframework.core.ParameterizedTypeReference;
@@ -49,25 +48,16 @@ public class KakaoQueryBookServiceImpl implements QueryBookService {
     }
 
     private KakaoBooks getKakaoBook(String url){
-//        ObjectMapper objectMapper = new ObjectMapper();
         HttpHeaders headers = new HttpHeaders();
         headers.set(Constants.KAKAO_HEADER_KEY, AUTHORIZATION);
 
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
-        ResponseEntity<KakaoBooks> responseEntity = null;
-//        Map<String, Object> data;
+        ResponseEntity<KakaoBooks> responseEntity;
         try {
             responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, new ParameterizedTypeReference<KakaoBooks>() {
             });
         }catch(HttpClientErrorException e){
-//            try {
-//                data = objectMapper.readValue(e.getResponseBodyAsString(), new TypeReference<Map<String, Object>>() {
-//                });
-//            }catch(IOException i){
-//                throw new RestException(e.getResponseBodyAsString(), e.getStatusCode());
-//            }
-//            throw new RestException((String)data.get("message"), HttpStatus.BAD_REQUEST);
             return null;
         }
         return responseEntity.getBody();

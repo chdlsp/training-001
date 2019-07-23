@@ -1,10 +1,8 @@
 package com.rasol.training001.controller;
 
-import com.rasol.training001.exception.RestException;
 import com.rasol.training001.model.dto.History;
 import com.rasol.training001.response.RestResponseEntity;
 import com.rasol.training001.service.HistoryService;
-import com.rasol.training001.util.ValidationUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;

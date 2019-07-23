@@ -1,7 +1,7 @@
 package com.rasol.training001.controller.userController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rasol.training001.code.ErrorCodes;
+import com.rasol.training001.constant.Constants;
 import com.rasol.training001.model.dto.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,7 +60,7 @@ public class CreateUserTests {
 
         resultActions
                 .andExpect(status().isConflict())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.Constants.USER_ID_ALREADY_EXISTS_ERROR));
+                .andExpect(jsonPath("$.message").value(Constants.USER_ID_ALREADY_EXISTS_ERROR));
     }
 
     @Test
@@ -93,12 +93,12 @@ public class CreateUserTests {
 
     @Test
     public void maxLengthUserId_200() throws Exception{
-        String maxLengthUserId = "";
+        StringBuilder maxLengthUserId = new StringBuilder();
         for(int i = 0;i < 255; i++) {
-            maxLengthUserId = maxLengthUserId + "1";
+            maxLengthUserId.append("1");
         }
 
-        User user = new User().setUserId(maxLengthUserId).setPassword("testPassword");
+        User user = new User().setUserId(maxLengthUserId.toString()).setPassword("testPassword");
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -111,12 +111,12 @@ public class CreateUserTests {
 
     @Test
     public void overMaxLengthUserId_400() throws Exception{
-        String maxLengthUserId = "";
+        StringBuilder maxLengthUserId = new StringBuilder();
         for(int i = 0;i < 256; i++) {
-            maxLengthUserId = maxLengthUserId + "1";
+            maxLengthUserId.append("1");
         }
 
-        User user = new User().setUserId(maxLengthUserId).setPassword("testPassword");
+        User user = new User().setUserId(maxLengthUserId.toString()).setPassword("testPassword");
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -125,7 +125,6 @@ public class CreateUserTests {
 
         resultActions
                 .andExpect(status().isBadRequest());
-//                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_ID_MAX_LENGTH_ERROR.getErrorMessage()));
     }
 
 
