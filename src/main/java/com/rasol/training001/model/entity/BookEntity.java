@@ -2,10 +2,7 @@ package com.rasol.training001.model.entity;
 
 import com.rasol.training001.model.dto.Book;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "books")
@@ -22,6 +19,7 @@ public class BookEntity extends BaseEntity{
     private String publisher;
     private Integer price;
     private Integer salePrice;
+    @Column(columnDefinition="varchar(2000)", nullable = false)
     private String thumbnail;
 
     public BookEntity() {
@@ -49,7 +47,7 @@ public class BookEntity extends BaseEntity{
     }
 
     public BookEntity setIsbn10(String isbn10) {
-        this.isbn10 = isbn10;
+        this.isbn10 = isbn10.length() > 255 ? isbn10.substring(0,254) : isbn10;
         return this;
     }
 
@@ -58,7 +56,7 @@ public class BookEntity extends BaseEntity{
     }
 
     public BookEntity setIsbn13(String isbn13) {
-        this.isbn13 = isbn13;
+        this.isbn13 = isbn13.length() > 255 ? isbn13.substring(0,254) : isbn13;
         return this;
     }
 
@@ -67,7 +65,7 @@ public class BookEntity extends BaseEntity{
     }
 
     public BookEntity setTitle(String title) {
-        this.title = title;
+        this.title = title.length() > 255 ? title.substring(0,254) : title;
         return this;
     }
 
@@ -76,7 +74,7 @@ public class BookEntity extends BaseEntity{
     }
 
     public BookEntity setContents(String contents) {
-        this.contents = contents;
+        this.contents = contents.length() > 255 ? contents.substring(0,254) : contents;
         return this;
     }
 
@@ -85,7 +83,7 @@ public class BookEntity extends BaseEntity{
     }
 
     public BookEntity setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+        this.dateTime = dateTime.length() > 255 ? dateTime.substring(0,254) : dateTime;
         return this;
     }
 
@@ -94,7 +92,7 @@ public class BookEntity extends BaseEntity{
     }
 
     public BookEntity setAuthors(String authors) {
-        this.authors = authors;
+        this.authors = authors.length() > 255 ? authors.substring(0,254) : authors;
         return this;
     }
 
@@ -103,7 +101,7 @@ public class BookEntity extends BaseEntity{
     }
 
     public BookEntity setPublisher(String publisher) {
-        this.publisher = publisher;
+        this.publisher = publisher.length() > 255 ? publisher.substring(0,254) : publisher;
         return this;
     }
 

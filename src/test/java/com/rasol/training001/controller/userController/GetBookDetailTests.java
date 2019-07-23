@@ -1,19 +1,26 @@
 package com.rasol.training001.controller.userController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rasol.training001.code.ErrorCodes;
+import com.rasol.training001.model.dto.User;
+import com.rasol.training001.repository.BookRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,10 +29,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
-public class getBookDetailTests {
+public class GetBookDetailTests {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private BookRepository bookRepository;
+
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private MockHttpSession session;
+    private static User user = new User().setUserId("testId").setPassword("testPassword");
+
+    @Before
+    public void setLoginSession() throws Exception {
+        // create user
+        mockMvc.perform(post("/users")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // login user
+        this.session = (MockHttpSession)mockMvc.perform(post("/users/login")
+                .content(objectMapper.writeValueAsString(user))
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn().getRequest().getSession();
+    }
 
     @Test
     public void defaultIsbn10_200() throws Exception{
@@ -33,13 +62,16 @@ public class getBookDetailTests {
         String keyword = "8984465240";
 
         final ResultActions resultActions = mockMvc.perform(get("/books/isbns/" + keyword)
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print());
 
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.body.isbn", containsString(keyword)));
-//                .andExpect(jsonPath("$.body[*].title", contains(equalToIgnoringCase("test"))));
+
+        // caching test
+        assertEquals(1, bookRepository.findAll().size());
     }
 
     @Test
@@ -48,13 +80,16 @@ public class getBookDetailTests {
         String keyword = "9788984465244";
 
         final ResultActions resultActions = mockMvc.perform(get("/books/isbns/" + keyword)
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print());
 
         resultActions
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.body.isbn", containsString(keyword)));
-//                .andExpect(jsonPath("$.body[*].title", contains(equalToIgnoringCase("test"))));
+
+        // caching test
+        assertEquals(1, bookRepository.findAll().size());
     }
 
     @Test
@@ -63,6 +98,7 @@ public class getBookDetailTests {
         String keyword = "8984465240 9788984465244";
 
         final ResultActions resultActions = mockMvc.perform(get("/books/isbns/" + keyword)
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print());
 
@@ -71,7 +107,8 @@ public class getBookDetailTests {
                 .andExpect(jsonPath("$.body.isbn", containsString("8984465240")))
                 .andExpect(jsonPath("$.body.isbn", containsString("9788984465244")));
 
-//                .andExpect(jsonPath("$.body[*].title", contains(equalToIgnoringCase("test"))));
+        // caching test
+        assertEquals(1, bookRepository.findAll().size());
     }
 
     @Test
@@ -80,13 +117,15 @@ public class getBookDetailTests {
         String keyword = "";
 
         final ResultActions resultActions = mockMvc.perform(get("/books/isbns/" + keyword)
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print());
 
         resultActions
                 .andExpect(status().isNotFound());
 
-//                .andExpect(jsonPath("$.body[*].title", contains(equalToIgnoringCase("test"))));
+        // caching test
+        assertEquals(0, bookRepository.findAll().size());
     }
 
     @Test
@@ -95,13 +134,15 @@ public class getBookDetailTests {
         String keyword = "123";
 
         final ResultActions resultActions = mockMvc.perform(get("/books/isbns/" + keyword)
+                .session(session)
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.BOOK_NOT_FOUND_ERROR.getErrorMessage()));
+                .andExpect(status().isNotFound());
 
-//                .andExpect(jsonPath("$.body[*].title", contains(equalToIgnoringCase("test"))));
+        // caching test
+        assertEquals(0, bookRepository.findAll().size());
+
     }
 }

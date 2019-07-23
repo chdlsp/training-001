@@ -26,14 +26,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class LoginUserTests {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    private User user = new User().setUserId("testId").setPassword("testPassword");
+
     @Autowired
     private MockMvc mockMvc;
 
     @Test
     public void validUser_200() throws Exception{
-
-        User user = new User().setUserId("testId").setPassword("testPassword");
-        User resultUser = new User().setUserId("testId");
 
         mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -47,13 +46,11 @@ public class LoginUserTests {
 
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.body.id").value(resultUser.getUserId()));
+                .andExpect(jsonPath("$.body.userId").value(user.getUserId()));
     }
 
     @Test
     public void userNotFound_404() throws Exception{
-
-        User user = new User().setUserId("testId").setPassword("testPassword");
 
         final ResultActions resultActions = this.mockMvc.perform(post("/users/login")
                 .content(objectMapper.writeValueAsString(user))
@@ -82,8 +79,7 @@ public class LoginUserTests {
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isUnauthorized())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.Constants.USER_PASSWORD_IS_WRONG_ERROR));
+                .andExpect(status().isForbidden());
     }
 
     @Test
@@ -98,8 +94,7 @@ public class LoginUserTests {
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_ID_MANDATORY_ERROR.getErrorMessage()));
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -114,8 +109,7 @@ public class LoginUserTests {
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_PASSWORD_MANDATORY_ERROR.getErrorMessage()));
+                .andExpect(status().isBadRequest());
     }
 
 }

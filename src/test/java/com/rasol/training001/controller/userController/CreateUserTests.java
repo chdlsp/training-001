@@ -68,7 +68,6 @@ public class CreateUserTests {
     public void emptyUserId_400() throws Exception{
 
         User user = new User().setUserId("").setPassword("testPassword");
-//        User resultUser = new User().setUserId("testId");
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -76,15 +75,13 @@ public class CreateUserTests {
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_ID_MANDATORY_ERROR.getErrorMessage()));
+                .andExpect(status().isBadRequest());
     }
 
     @Test
     public void emptyUserPassword_400() throws Exception{
 
         User user = new User().setUserId("test").setPassword("");
-//        User resultUser = new User().setUserId("testId");
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -92,8 +89,7 @@ public class CreateUserTests {
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_PASSWORD_MANDATORY_ERROR.getErrorMessage()));
+                .andExpect(status().isBadRequest());
     }
 
     @Test
@@ -104,7 +100,6 @@ public class CreateUserTests {
         }
 
         User user = new User().setUserId(maxLengthUserId).setPassword("testPassword");
-        User resultUser = new User().setUserId(maxLengthUserId);
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -112,8 +107,7 @@ public class CreateUserTests {
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("body").value(objectMapper.writeValueAsString(resultUser)));
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -124,7 +118,6 @@ public class CreateUserTests {
         }
 
         User user = new User().setUserId(maxLengthUserId).setPassword("testPassword");
-        User resultUser = new User().setUserId(maxLengthUserId);
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -132,8 +125,8 @@ public class CreateUserTests {
                 .andDo(print());
 
         resultActions
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_ID_MAX_LENGTH_ERROR.getErrorMessage()));
+                .andExpect(status().isBadRequest());
+//                .andExpect(jsonPath("$.message").value(ErrorCodes.USER_ID_MAX_LENGTH_ERROR.getErrorMessage()));
     }
 
 
