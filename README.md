@@ -201,7 +201,12 @@ ErrorResponse :
 
 
 
+# 사용한 오픈 소스
 
+- org.springframework.boot:spring-boot-starter-web : spring boot
+- com.h2database:h2 : h2 DB
+- org.springframework.boot:spring-boot-starter-security : login 및 UrlAccessHandle
+- org.springframework.boot:spring-boot-starter-data-jpa : JPA
 
 
 
