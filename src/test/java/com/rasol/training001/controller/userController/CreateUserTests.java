@@ -33,7 +33,6 @@ public class CreateUserTests {
     public void validUser_200() throws Exception{
 
         User user = new User().setUserId("testId").setPassword("testPassword");
-        User resultUser = new User().setUserId("testId");
 
         final ResultActions resultActions = mockMvc.perform(post("/users")
                 .content(objectMapper.writeValueAsString(user))
@@ -42,7 +41,7 @@ public class CreateUserTests {
 
         resultActions
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("body").value(objectMapper.writeValueAsString(resultUser)));
+                .andExpect(jsonPath("$.body.userId").value(user.getUserId()));
     }
 
     @Test

@@ -9,8 +9,8 @@ import javax.management.timer.Timer;
 public class Constants {
     public static final String KAKAO_BASE_URL = "https://dapi.kakao.com";
     // error test
-    public static final String KAKAO_BOOK_API_URL = "/v3/search/error";
-//    public static final String KAKAO_BOOK_API_URL = "/v3/search/book";
+//    public static final String KAKAO_BOOK_API_URL = "/v3/search/error";
+    public static final String KAKAO_BOOK_API_URL = "/v3/search/book";
     public static final String KAKAO_APP_KEY = "8a933422d0e43d89b011e9027e2756e8";
     public static final String KAKAO_HEADER_KEY = "Authorization";
 
