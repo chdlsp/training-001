@@ -10,8 +10,9 @@ https://github.com/temprstemp/training-001/raw/master/training-001-0.0.1-SNAPSHO
 timestamp : 요청이 처리되어 나가는 시간  
 path : 요청자가 요청한 url  
 body : 해당 API의 결과값  
+  
+example 
 ```json
-example  
 {  
     "timestamp": "2019-07-24T00:03:37.172+09:00",  
     "path": "/users",  
@@ -27,8 +28,9 @@ path : 요청자가 요청한 url
 message : 해당 API의 에러 상세  
 error : 해당 API의 HttpStatus error  
 status : 해당 API의 HttpStatus errorCode   
-```json
+  
 example
+```json
 {
     "timestamp": "2019-07-24T00:03:41.796+09:00",
     "path": "/users/login",
