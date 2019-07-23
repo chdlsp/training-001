@@ -34,8 +34,7 @@ public class KakaoQueryBookServiceImpl implements QueryBookService {
         String isbnUrl = this.createIsbnUrl(isbn);
 
         KakaoBooks kakaoBooks = Optional.ofNullable(this.getKakaoBook(isbnUrl)).orElse(null);
-
-        return Optional.ofNullable(kakaoBooks).isPresent() ? kakaoBooks.getBooks().get(0) : null;
+        return Optional.ofNullable(kakaoBooks).isPresent() ? kakaoBooks.getBooks().stream().findFirst().orElse(null) : null;
     }
 
     private String createIsbnUrl(String isbn){

@@ -41,16 +41,16 @@ public class BookServiceImpl implements BookService{
 
     @Override
     public List<SimpleBook> getSimpleBookListByKeywordAndPageAndSizeAndTarget(String keyword, Integer page, Integer size){
-        List<SimpleBook> simpleBookList = Optional.ofNullable(kakaoQueryBookService.getBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size))
-                .orElseGet(()->naverQueryBookService.getBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size))
-                .stream()
-                .map(SimpleBook::new)
-                .collect(Collectors.toList());
+        List<Book> bookList = Optional.ofNullable(kakaoQueryBookService.getBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size))
+                .orElseGet(()->naverQueryBookService.getBookListByKeywordAndPageAndSizeAndTarget(keyword, page, size));
+
+        // caching
+        bookRepository.saveAll(bookList.stream().map(BookEntity::new).collect(Collectors.toList()));
 
         historyService.createHistory(keyword);
         popularKeywordService.createOrUpdatePopularKeyword(keyword);
 
-        return simpleBookList;
+        return bookList.stream().map(SimpleBook::new).collect(Collectors.toList());
     }
 
     @Override

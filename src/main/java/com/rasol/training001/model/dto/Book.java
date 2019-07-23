@@ -1,7 +1,7 @@
 package com.rasol.training001.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.rasol.training001.model.dto.querybook.NaverBook;
+import com.rasol.training001.model.dto.querybook.naver.NaverBook;
 import com.rasol.training001.model.entity.BookEntity;
 import com.rasol.training001.util.TimeUtils;
 

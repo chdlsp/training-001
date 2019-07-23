@@ -1,21 +1,26 @@
-package com.rasol.training001.model.dto.querybook;
+package com.rasol.training001.model.dto.querybook.naver;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "item")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class NaverBook {
     private String title;
-    @JsonProperty("description")
+    @XmlElement(name = "description")
     private String contents;
     private String isbn;
-    @JsonProperty("pubdate")
+    @XmlElement(name = "pubdate")
     private String dateTime;
-    @JsonProperty("author")
+    @XmlElement(name = "author")
     private String authors;
     private String publisher;
     private Integer price;
-    @JsonProperty("discount")
+    @XmlElement(name = "discount")
     private Integer salePrice;
-    @JsonProperty("image")
+    @XmlElement(name = "image")
     private String thumbnail;
 
     public String getTitle() {

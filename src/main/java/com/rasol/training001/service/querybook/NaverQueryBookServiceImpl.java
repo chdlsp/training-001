@@ -5,8 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rasol.training001.constant.Constants;
 import com.rasol.training001.exception.NotFoundException;
 import com.rasol.training001.exception.RestException;
-import com.rasol.training001.model.dto.querybook.NaverBooks;
+import com.rasol.training001.model.dto.querybook.naver.NaverBooks;
 import com.rasol.training001.model.dto.Book;
+import com.rasol.training001.model.dto.querybook.naver.Rss;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,10 +52,8 @@ public class NaverQueryBookServiceImpl implements QueryBookService {
     }
 
     private String createIsbnUrl(String isbn){
-        String url = Arrays.stream(isbn.split(" "))
-                .map(splitIsbn -> "&query=" + splitIsbn)
-                .reduce("", String::concat);
-        return Constants.NAVER_BASE_URL + Constants.NAVER_BOOK_API_URL + "?target=isbn" + url;
+        String url = "?d_isbn=" + String.join("&d_isbn=", isbn.split(" "));
+        return Constants.NAVER_BASE_URL + Constants.NAVER_BOOK_DETAIL_URL + url;
     }
 
     private String createFullUrl(String keyword, Integer start, Integer display){
@@ -70,10 +68,10 @@ public class NaverQueryBookServiceImpl implements QueryBookService {
 
         HttpEntity<String> entity = new HttpEntity<>("body", headers);
 
-        ResponseEntity<NaverBooks> responseEntity = null;
+        ResponseEntity<Rss> responseEntity = null;
         Map<String, Object> data;
         try {
-            responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, new ParameterizedTypeReference<NaverBooks>() {
+            responseEntity = restTemplate.exchange(url, HttpMethod.GET, entity, new ParameterizedTypeReference<Rss>() {
             });
         }catch(HttpClientErrorException e){
             try {
@@ -84,8 +82,8 @@ public class NaverQueryBookServiceImpl implements QueryBookService {
             }
             throw new RestException((String)data.get("message"), HttpStatus.BAD_REQUEST);
         }
-//        Optional<KakaoBooks> maybeKakaoBook = Optional.ofNullable(responseEntity.getBody());
-        return responseEntity.getBody();
+//        Optional<KakaoBooks> maybeKakaoBook = Optional.ofNullable(responseEntity.getBody());F
+        return Optional.ofNullable(responseEntity.getBody()).map(Rss::getNaverBooks).orElse(null);
 
     }
 
