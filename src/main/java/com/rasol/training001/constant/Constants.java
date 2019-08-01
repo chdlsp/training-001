@@ -5,7 +5,6 @@ import org.springframework.stereotype.Component;
 
 import javax.management.timer.Timer;
 
-@Component
 public class Constants {
     public static final String KAKAO_BASE_URL = "https://dapi.kakao.com";
     // error test
